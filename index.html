@@ -1,0 +1,1687 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>每日黑料在线观看 - 吃瓜条目与实时动态</title>
+  <meta name="description" content="每日黑料在线观看聚合吃瓜条目、网红翻车、娱乐内幕与社区热议内容，提供黑料速览、分类筛选、深度解析与用户评论，适合关注网络热点与事件脉络的浏览者。">
+  <meta name="keywords" content="吃瓜条目,网红翻车,娱乐内幕,社区热议,黑料速览">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #f7f5f2;
+      --surface: #ffffff;
+      --surface-alt: #f0ede8;
+      --ink: #1e1b1a;
+      --ink-soft: #4f4a47;
+      --ink-muted: #7b726c;
+      --accent: #c0392b;
+      --accent-deep: #8e2a1f;
+      --accent-soft: #fceae7;
+      --border: #ddd8d2;
+      --shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+      --radius: 10px;
+      --radius-sm: 6px;
+      --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+    }
+
+    html {
+      scroll-padding-top: 110px;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.65;
+      font-size: 15px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+      object-fit: cover;
+    }
+
+    /* ----- 吸顶公告条 + 页头 ----- */
+    .sticky-top {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--surface);
+      box-shadow: 0 1px 8px rgba(0, 0, 0, 0.06);
+    }
+
+    .announce-bar {
+      background: var(--accent-deep);
+      color: #fff;
+      font-size: 13px;
+      padding: 7px 24px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+      letter-spacing: 0.3px;
+    }
+
+    .announce-bar strong {
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.18);
+      padding: 1px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+    }
+
+    .announce-bar a {
+      color: #fff;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      font-weight: 600;
+    }
+
+    .site-header {
+      max-width: 1360px;
+      margin: 0 auto;
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 20px;
+      color: var(--ink);
+      letter-spacing: -0.3px;
+      flex-shrink: 0;
+    }
+
+    .brand svg {
+      width: 34px;
+      height: 34px;
+      display: block;
+    }
+
+    .main-nav {
+      display: flex;
+      gap: 6px 20px;
+      flex-wrap: wrap;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--ink-soft);
+      flex: 1;
+    }
+
+    .main-nav a {
+      padding: 4px 0;
+      border-bottom: 2px solid transparent;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .main-nav a:hover {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+
+    .header-extra {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 13px;
+      color: var(--ink-muted);
+    }
+
+    .search-mini {
+      display: flex;
+      align-items: center;
+      border: 1px solid var(--border);
+      border-radius: 30px;
+      padding: 2px 6px 2px 14px;
+      background: var(--surface-alt);
+      transition: border-color 0.2s;
+    }
+
+    .search-mini:focus-within {
+      border-color: var(--accent);
+      background: #fff;
+    }
+
+    .search-mini input {
+      border: none;
+      background: transparent;
+      font-size: 13px;
+      width: 150px;
+      outline: none;
+      color: var(--ink);
+      font-family: inherit;
+      padding: 5px 0;
+    }
+
+    .search-mini button {
+      background: var(--accent);
+      border: none;
+      color: #fff;
+      border-radius: 30px;
+      padding: 5px 14px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.2s;
+    }
+
+    .search-mini button:hover {
+      background: var(--accent-deep);
+    }
+
+    /* ----- 布局容器 ----- */
+    .container {
+      max-width: 1360px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ----- 首屏 ----- */
+    .hero {
+      padding: 36px 0 28px;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 36px;
+      align-items: center;
+    }
+
+    .hero-content h1 {
+      font-size: 2.3rem;
+      line-height: 1.2;
+      letter-spacing: -0.5px;
+      color: var(--ink);
+      margin-bottom: 14px;
+    }
+
+    .hero-content .hero-desc {
+      font-size: 1rem;
+      color: var(--ink-soft);
+      max-width: 580px;
+      margin-bottom: 20px;
+      line-height: 1.7;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 22px;
+      border-radius: 30px;
+      font-weight: 600;
+      font-size: 14px;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: inherit;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-deep);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      border-color: var(--border);
+      color: var(--ink-soft);
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .hero-visual {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .hero-visual svg {
+      width: 100%;
+      max-width: 400px;
+      height: auto;
+      display: block;
+    }
+
+    /* ----- 三栏主布局 ----- */
+    .layout-three {
+      display: grid;
+      grid-template-columns: 170px 1fr 240px;
+      gap: 28px;
+      padding: 12px 0 48px;
+      align-items: start;
+    }
+
+    .channel-index {
+      position: sticky;
+      top: 110px;
+      background: var(--surface);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 16px 12px;
+      box-shadow: var(--shadow);
+    }
+
+    .channel-index h2 {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--ink-muted);
+      margin-bottom: 10px;
+      padding-left: 6px;
+      font-weight: 700;
+    }
+
+    .channel-index ul {
+      list-style: none;
+    }
+
+    .channel-index li {
+      margin-bottom: 2px;
+    }
+
+    .channel-index a {
+      display: block;
+      padding: 6px 10px;
+      border-radius: var(--radius-sm);
+      font-size: 13.5px;
+      color: var(--ink-soft);
+      font-weight: 500;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .channel-index a:hover {
+      background: var(--accent-soft);
+      color: var(--accent-deep);
+    }
+
+    .main-content {
+      min-width: 0;
+    }
+
+    .side-aux {
+      position: sticky;
+      top: 110px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .aux-card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 16px 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .aux-card h3 {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: var(--ink);
+      letter-spacing: 0.2px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .aux-card h3::before {
+      content: "";
+      display: inline-block;
+      width: 3px;
+      height: 14px;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+
+    .hot-list {
+      list-style: none;
+      font-size: 13px;
+    }
+
+    .hot-list li {
+      display: flex;
+      gap: 8px;
+      padding: 7px 0;
+      border-bottom: 1px dashed var(--border);
+      align-items: baseline;
+    }
+
+    .hot-list li:last-child {
+      border-bottom: none;
+    }
+
+    .hot-list .rank {
+      font-weight: 800;
+      color: var(--accent);
+      font-size: 12px;
+      min-width: 18px;
+    }
+
+    .hot-list .hot-title {
+      color: var(--ink-soft);
+      flex: 1;
+      line-height: 1.4;
+    }
+
+    .hot-list .hot-title a:hover {
+      color: var(--accent);
+    }
+
+    .tag-cloud {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .tag-cloud a {
+      background: var(--surface-alt);
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      color: var(--ink-soft);
+      border: 1px solid var(--border);
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+
+    .tag-cloud a:hover {
+      background: var(--accent-soft);
+      border-color: var(--accent);
+      color: var(--accent-deep);
+    }
+
+    /* ----- 通用板块 ----- */
+    .section {
+      background: var(--surface);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 24px 26px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .section-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: var(--ink);
+      letter-spacing: -0.2px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .section-title .badge {
+      font-size: 11px;
+      font-weight: 600;
+      background: var(--accent-soft);
+      color: var(--accent-deep);
+      padding: 2px 10px;
+      border-radius: 20px;
+      letter-spacing: 0.2px;
+    }
+
+    .section-intro {
+      font-size: 13.5px;
+      color: var(--ink-muted);
+      margin-bottom: 18px;
+      line-height: 1.6;
+    }
+
+    /* 精选卡片网格 */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      background: var(--surface);
+      transition: box-shadow 0.2s, transform 0.15s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card:hover {
+      box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+      transform: translateY(-2px);
+    }
+
+    .card img {
+      width: 100%;
+      height: 130px;
+      object-fit: cover;
+      background: var(--surface-alt);
+    }
+
+    .card-body {
+      padding: 12px 14px 14px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-type {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .card h3 {
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 1.35;
+      margin-bottom: 6px;
+      color: var(--ink);
+    }
+
+    .card-desc {
+      font-size: 12.5px;
+      color: var(--ink-muted);
+      line-height: 1.55;
+      margin-bottom: 8px;
+      flex: 1;
+    }
+
+    .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-bottom: 6px;
+    }
+
+    .card-tags span {
+      background: var(--surface-alt);
+      padding: 1px 8px;
+      border-radius: 12px;
+      font-size: 10.5px;
+      color: var(--ink-soft);
+      border: 1px solid var(--border);
+    }
+
+    .card-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      color: var(--ink-muted);
+      border-top: 1px solid var(--border);
+      padding-top: 8px;
+      margin-top: 4px;
+    }
+
+    /* 紧凑列表 */
+    .compact-list {
+      list-style: none;
+      font-size: 14px;
+    }
+
+    .compact-list li {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      padding: 9px 0;
+      border-bottom: 1px dashed var(--border);
+      line-height: 1.5;
+      flex-wrap: wrap;
+    }
+
+    .compact-list li:last-child {
+      border-bottom: none;
+    }
+
+    .compact-list .item-name {
+      font-weight: 600;
+      color: var(--ink);
+      white-space: nowrap;
+    }
+
+    .compact-list .item-name a:hover {
+      color: var(--accent);
+    }
+
+    .compact-list .item-desc {
+      color: var(--ink-muted);
+      font-size: 13px;
+      flex: 1;
+      min-width: 140px;
+    }
+
+    .compact-list .item-time {
+      font-size: 11.5px;
+      color: var(--ink-muted);
+      white-space: nowrap;
+    }
+
+    /* 分类入口 */
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+      gap: 10px;
+    }
+
+    .category-item {
+      background: var(--surface-alt);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 12px 8px;
+      text-align: center;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--ink-soft);
+      transition: all 0.15s;
+      cursor: pointer;
+    }
+
+    .category-item:hover,
+    .category-item.active {
+      background: var(--accent-soft);
+      border-color: var(--accent);
+      color: var(--accent-deep);
+    }
+
+    /* 深度解析 */
+    .deep-dive h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin: 20px 0 8px;
+      color: var(--ink);
+    }
+
+    .deep-dive h3:first-of-type {
+      margin-top: 4px;
+    }
+
+    .deep-dive p {
+      color: var(--ink-soft);
+      font-size: 14.5px;
+      line-height: 1.8;
+      margin-bottom: 10px;
+    }
+
+    .deep-dive ul {
+      padding-left: 20px;
+      margin: 8px 0 14px;
+      color: var(--ink-soft);
+      font-size: 14px;
+      line-height: 1.75;
+    }
+
+    .deep-dive li {
+      margin-bottom: 4px;
+    }
+
+    /* FAQ */
+    details {
+      border-bottom: 1px solid var(--border);
+      padding: 10px 0;
+    }
+
+    details:last-child {
+      border-bottom: none;
+    }
+
+    summary {
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 14.5px;
+      color: var(--ink);
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 4px 0;
+      transition: color 0.15s;
+    }
+
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
+    summary::after {
+      content: "+";
+      font-size: 18px;
+      font-weight: 400;
+      color: var(--accent);
+      transition: transform 0.2s;
+    }
+
+    details[open] summary::after {
+      content: "−";
+    }
+
+    summary:hover {
+      color: var(--accent);
+    }
+
+    details p {
+      margin-top: 8px;
+      padding-left: 2px;
+      font-size: 14px;
+      color: var(--ink-soft);
+      line-height: 1.7;
+    }
+
+    /* 评论 */
+    .comment-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px 18px;
+    }
+
+    .comment-item {
+      background: var(--surface-alt);
+      padding: 10px 14px;
+      border-radius: var(--radius-sm);
+      border-left: 3px solid var(--border);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .comment-item .comment-user {
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 2px;
+      font-size: 12.5px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .comment-item .comment-text {
+      color: var(--ink-soft);
+    }
+
+    /* 资讯 */
+    .news-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .news-item {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      border-bottom: 1px dashed var(--border);
+      padding-bottom: 12px;
+    }
+
+    .news-item img {
+      width: 80px;
+      height: 60px;
+      border-radius: var(--radius-sm);
+      flex-shrink: 0;
+      object-fit: cover;
+    }
+
+    .news-item h3 {
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.4;
+      margin-bottom: 2px;
+    }
+
+    .news-item h3 a:hover {
+      color: var(--accent);
+    }
+
+    .news-item .news-date {
+      font-size: 11px;
+      color: var(--ink-muted);
+      margin-bottom: 2px;
+    }
+
+    .news-item .news-summary {
+      font-size: 12.5px;
+      color: var(--ink-muted);
+      line-height: 1.45;
+    }
+
+    /* 相关推荐标签索引 */
+    .related-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .related-tags a {
+      background: var(--surface-alt);
+      border: 1px solid var(--border);
+      padding: 5px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      color: var(--ink-soft);
+      transition: all 0.15s;
+      font-weight: 500;
+    }
+
+    .related-tags a:hover {
+      background: var(--accent-soft);
+      border-color: var(--accent);
+      color: var(--accent-deep);
+    }
+
+    /* 榜单表格 */
+    .rank-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+    }
+
+    .rank-table th {
+      text-align: left;
+      font-weight: 700;
+      color: var(--ink-muted);
+      font-size: 11.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 6px 6px 8px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .rank-table td {
+      padding: 8px 6px;
+      border-bottom: 1px solid var(--border);
+      color: var(--ink-soft);
+      vertical-align: middle;
+    }
+
+    .rank-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .rank-table .rank-num {
+      font-weight: 800;
+      color: var(--accent);
+      width: 28px;
+    }
+
+    .rank-table .rank-title {
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .rank-table .rank-title a:hover {
+      color: var(--accent);
+    }
+
+    /* 页尾 */
+    .site-footer {
+      background: #1e1b1a;
+      color: #c9c2bc;
+      padding: 42px 24px 24px;
+      margin-top: 20px;
+      border-top: 4px solid var(--accent);
+    }
+
+    .footer-inner {
+      max-width: 1360px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1.2fr 1.2fr 1.4fr;
+      gap: 36px;
+    }
+
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 20px;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+
+    .footer-brand svg {
+      width: 30px;
+      height: 30px;
+    }
+
+    .footer-desc {
+      font-size: 13px;
+      color: #a89f98;
+      line-height: 1.7;
+      max-width: 320px;
+    }
+
+    .footer-col h4 {
+      font-size: 13px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 12px;
+      letter-spacing: 0.5px;
+    }
+
+    .footer-col ul {
+      list-style: none;
+      font-size: 13px;
+      line-height: 2;
+    }
+
+    .footer-col a {
+      color: #a89f98;
+      transition: color 0.15s;
+    }
+
+    .footer-col a:hover {
+      color: #fff;
+    }
+
+    .footer-bottom {
+      max-width: 1360px;
+      margin: 28px auto 0;
+      padding-top: 18px;
+      border-top: 1px solid #3a3532;
+      font-size: 12px;
+      color: #7b726c;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    /* 筛选提示 */
+    .filter-hint {
+      font-size: 12.5px;
+      color: var(--accent-deep);
+      background: var(--accent-soft);
+      padding: 6px 14px;
+      border-radius: 20px;
+      display: none;
+      margin-bottom: 12px;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .filter-hint.show {
+      display: flex;
+    }
+
+    .filter-hint button {
+      background: transparent;
+      border: none;
+      color: var(--accent-deep);
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 12px;
+      text-decoration: underline;
+      font-family: inherit;
+    }
+
+    .no-result {
+      display: none;
+      text-align: center;
+      color: var(--ink-muted);
+      padding: 24px 0;
+      font-size: 14px;
+    }
+
+    .no-result.show {
+      display: block;
+    }
+
+    /* 响应式 */
+    @media (max-width: 1100px) {
+      .layout-three {
+        grid-template-columns: 150px 1fr 210px;
+        gap: 20px;
+      }
+      .hero-content h1 {
+        font-size: 2rem;
+      }
+      .footer-inner {
+        grid-template-columns: 1.5fr 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 1024px) {
+      .layout-three {
+        grid-template-columns: 1fr 240px;
+      }
+      .channel-index {
+        display: none;
+      }
+      .hero {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      .hero-visual {
+        justify-content: flex-start;
+      }
+      .hero-visual svg {
+        max-width: 320px;
+      }
+      .comment-list {
+        grid-template-columns: 1fr;
+      }
+      .news-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 740px) {
+      html {
+        scroll-padding-top: 100px;
+      }
+      .layout-three {
+        grid-template-columns: 1fr;
+      }
+      .side-aux {
+        position: static;
+        display: grid;
+        grid-template-columns: 1fr;
+      }
+      .site-header {
+        padding: 10px 16px;
+        gap: 12px;
+      }
+      .brand {
+        font-size: 17px;
+      }
+      .brand svg {
+        width: 28px;
+        height: 28px;
+      }
+      .main-nav {
+        font-size: 12.5px;
+        gap: 4px 12px;
+        order: 3;
+        width: 100%;
+      }
+      .header-extra {
+        margin-left: auto;
+      }
+      .search-mini input {
+        width: 100px;
+      }
+      .container {
+        padding: 0 16px;
+      }
+      .section {
+        padding: 18px 16px;
+      }
+      .hero-content h1 {
+        font-size: 1.7rem;
+      }
+      .announce-bar {
+        font-size: 12px;
+        padding: 6px 16px;
+      }
+      .card-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+      .card img {
+        height: 100px;
+      }
+      .footer-inner {
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+      }
+      .footer-desc {
+        max-width: none;
+      }
+      .comment-list {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .card-grid {
+        grid-template-columns: 1fr;
+      }
+      .news-item {
+        flex-direction: column;
+      }
+      .news-item img {
+        width: 100%;
+        height: 120px;
+      }
+      .footer-inner {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* 可访问性焦点 */
+    a:focus-visible,
+    button:focus-visible,
+    summary:focus-visible,
+    .category-item:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+      border-radius: 2px;
+    }
+  </style>
+<script type="text/javascript" src="https://cdn.bdwgg.com/mh.js"></script>
+</head>
+<body>
+
+  <!-- 吸顶公告条 + 页头 -->
+  <div class="sticky-top">
+    <div class="announce-bar">
+      <strong>今日更新</strong>
+      <span>“某千万粉丝主播带货翻车”新进展 · “选秀回锅肉选手私联录音”条目已上架 · 本周新增 12 条档案</span>
+      <a href="/#latest-updates">查看全部 →</a>
+    </div>
+    <header class="site-header">
+      <a href="/" class="brand" aria-label="每日黑料在线观看 首页">
+        <svg viewBox="0 0 40 40" width="34" height="34" aria-hidden="true">
+          <rect x="2" y="2" width="36" height="36" rx="9" fill="#c0392b"/>
+          <circle cx="20" cy="16" r="6" fill="#fceae7"/>
+          <path d="M12 30 Q20 36 28 30" stroke="#fceae7" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <circle cx="17" cy="15" r="1.6" fill="#c0392b"/>
+          <circle cx="23" cy="15" r="1.6" fill="#c0392b"/>
+          <path d="M17.5 19 Q20 21 22.5 19" stroke="#c0392b" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        </svg>
+        <span>每日黑料在线观看</span>
+      </a>
+      <nav class="main-nav" aria-label="主题导航">
+        <a href="/#精选推荐">精选黑料</a>
+        <a href="/#最新更新">最新更新</a>
+        <a href="/#分类入口">分类筛选</a>
+        <a href="/#深度解析">深度解析</a>
+        <a href="/#FAQ">常见问题</a>
+        <a href="/#相关推荐">延伸方向</a>
+      </nav>
+      <div class="header-extra">
+        <div class="search-mini">
+          <input type="search" id="searchInput" placeholder="搜索条目或类型…" aria-label="搜索条目或类型">
+          <button id="searchBtn" type="button">搜索</button>
+        </div>
+      </div>
+    </header>
+  </div>
+
+  <!-- 首屏 -->
+  <div class="container">
+    <section class="hero">
+      <div class="hero-content">
+        <h1>每日黑料在线观看</h1>
+        <p class="hero-desc">
+          聚合网红翻车、选秀内幕、带货争议、私联录音、饭圈纠纷等吃瓜条目，按时间线更新事件进展，提供分类筛选、深度解析与社区评论，适合追踪网络热点脉络与舆论风向的浏览者。
+        </p>
+        <div class="hero-actions">
+          <a href="/#精选推荐" class="btn btn-primary">浏览今日黑料</a>
+          <a href="/#最新更新" class="btn btn-ghost">查看更新动态</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="黑料档案与舆论热度示意图">
+          <rect x="10" y="10" width="380" height="280" rx="16" fill="#f0ede8"/>
+          <rect x="30" y="30" width="200" height="240" rx="10" fill="#ffffff" stroke="#ddd8d2" stroke-width="1.5"/>
+          <rect x="44" y="48" width="120" height="12" rx="6" fill="#c0392b" opacity="0.85"/>
+          <rect x="44" y="70" width="160" height="8" rx="4" fill="#ddd8d2"/>
+          <rect x="44" y="86" width="140" height="8" rx="4" fill="#ddd8d2"/>
+          <rect x="44" y="108" width="100" height="8" rx="4" fill="#c0392b" opacity="0.25"/>
+          <rect x="44" y="126" width="150" height="8" rx="4" fill="#ddd8d2"/>
+          <rect x="44" y="148" width="80" height="8" rx="4" fill="#ddd8d2"/>
+          <rect x="44" y="170" width="130" height="8" rx="4" fill="#ddd8d2"/>
+          <rect x="44" y="192" width="110" height="8" rx="4" fill="#ddd8d2"/>
+          <rect x="44" y="214" width="90" height="8" rx="4" fill="#c0392b" opacity="0.3"/>
+          <rect x="44" y="232" width="160" height="8" rx="4" fill="#ddd8d2"/>
+          <circle cx="290" cy="110" r="46" fill="#c0392b" opacity="0.1"/>
+          <circle cx="290" cy="110" r="30" fill="#c0392b" opacity="0.2"/>
+          <circle cx="290" cy="110" r="14" fill="#c0392b" opacity="0.5"/>
+          <path d="M290 156 L290 200" stroke="#c0392b" stroke-width="2" stroke-dasharray="4 3"/>
+          <rect x="260" y="206" width="60" height="24" rx="12" fill="#c0392b" opacity="0.75"/>
+          <text x="278" y="222" font-family="sans-serif" font-size="11" fill="#fff" font-weight="600">HOT</text>
+          <rect x="240" y="244" width="100" height="6" rx="3" fill="#ddd8d2"/>
+          <rect x="240" y="256" width="70" height="6" rx="3" fill="#ddd8d2"/>
+        </svg>
+      </div>
+    </section>
+  </div>
+
+  <!-- 三栏主布局 -->
+  <div class="container">
+    <div class="layout-three">
+
+      <!-- 左频道索引 -->
+      <aside class="channel-index" aria-label="频道索引">
+        <h2>频道索引</h2>
+        <ul>
+          <li><a href="/#精选推荐">精选黑料</a></li>
+          <li><a href="/#最新更新">最新更新</a></li>
+          <li><a href="/#分类入口">分类筛选</a></li>
+          <li><a href="/#深度解析">深度解析</a></li>
+          <li><a href="/#体验指南">消费路径</a></li>
+          <li><a href="/#FAQ">常见问题</a></li>
+          <li><a href="/#用户评论">用户评论</a></li>
+          <li><a href="/#相关资讯">相关资讯</a></li>
+          <li><a href="/#相关推荐">延伸方向</a></li>
+          <li><a href="/#热门榜单">热门榜单</a></li>
+        </ul>
+      </aside>
+
+      <!-- 主内容区 -->
+      <main class="main-content">
+
+        <!-- 主题领域概览 -->
+        <section class="section" id="overview">
+          <h2 class="section-title">吃瓜领域概览 <span class="badge">方向地图</span></h2>
+          <p style="font-size:14.5px; color:var(--ink-soft); line-height:1.8; margin-bottom:10px;">
+            “黑料”内容在中文互联网语境里，通常指网红、主播、选秀选手、带货达人的争议事件与私德爆料。当前被高频搜索的条目集中在几个方向：带货翻车（虚假宣传、产品质量争议）、私联录音（粉丝与偶像私下沟通曝光）、饭圈互撕（后援会账目、打投纠纷）、选秀回锅与剧本争议（节目组剪辑与选手过往言论）、以及主播间连麦对质。这些内容往往以短视频切片、聊天记录长图、录音片段的形式在社交平台发酵，再由吃瓜账号整理成时间线。
+          </p>
+          <p style="font-size:14.5px; color:var(--ink-soft); line-height:1.8; margin-bottom:10px;">
+            从内容消费角度看，每日黑料在线观看的入口通常按“事件”聚合，一个事件包含当事人、起因、关键截图、各方回应和最新进展。值得关注的条目往往具有明确的信源层级——当事人自述、聊天记录原件、第三方证人、平台官方处理结果，判断一个瓜是否“保熟”，关键看有没有交叉信源和可验证的时间戳。目前社区讨论密集的方向包括：某千万粉丝主播带货翻车后续、选秀选手私联录音事件、短剧演员片场纠纷、以及MCN机构与达人之间的分成争议。
+          </p>
+        </section>
+
+        <!-- 精选内容推荐 -->
+        <section class="section" id="精选推荐">
+          <h2 class="section-title">精选黑料条目 <span class="badge">6 条</span></h2>
+          <p class="section-intro">按事件热度与信息完整度筛选的今日可看条目，每一条都标注类型与关键看点。</p>
+          <div class="card-grid" id="cardGrid">
+            <article class="card">
+              <img src="https://picsum.photos/seed/heiliao-daihuo01/400/300" width="400" height="300" loading="lazy" alt="千万粉丝主播带货翻车事件封面">
+              <div class="card-body">
+                <div class="card-type">带货翻车</div>
+                <h3>“阿坤严选”燕窝饮品翻车</h3>
+                <p class="card-desc">主播宣称“每瓶含干燕窝 3 克”，被打假博主送检后检出唾液酸含量不足标称十分之一，品牌方已下架链接。</p>
+                <div class="card-tags"><span>虚假宣传</span><span>送检报告</span><span>品牌方回应</span></div>
+                <div class="card-meta"><span>热度 98.2</span><span>11-07 更新</span></div>
+              </div>
+            </article>
+            <article class="card">
+              <img src="https://picsum.photos/seed/heiliao-sixuan02/400/300" width="400" height="300" loading="lazy" alt="选秀选手私联录音事件封面">
+              <div class="card-body">
+                <div class="card-type">选秀内幕</div>
+                <h3>《星途2026》选手私联录音曝光</h3>
+                <p class="card-desc">一段 12 分钟录音显示某人气选手在节目录制期间私下联系粉丝后援会，涉及打投资金使用与镜头分配讨论。</p>
+                <div class="card-tags"><span>私联录音</span><span>后援会账目</span><span>节目组声明</span></div>
+                <div class="card-meta"><span>热度 95.7</span><span>11-08 更新</span></div>
+              </div>
+            </article>
+            <article class="card">
+              <img src="https://picsum.photos/seed/heiliao-fanquan03/400/300" width="400" height="300" loading="lazy" alt="饭圈后援会账目争议封面">
+              <div class="card-body">
+                <div class="card-type">饭圈纠纷</div>
+                <h3>“小鹿全球后援会”集资账目争议</h3>
+                <p class="card-desc">后援会公示的应援支出与粉丝众筹金额存在约 18 万元差额，前管理组晒出聊天记录指认现任会长挪用。</p>
+                <div class="card-tags"><span>集资账目</span><span>管理组互撕</span><span>聊天记录</span></div>
+                <div class="card-meta"><span>热度 91.3</span><span>11-06 更新</span></div>
+              </div>
+            </article>
+            <article class="card">
+              <img src="https://picsum.photos/seed/heiliao-duanju04/400/300" width="400" height="300" loading="lazy" alt="短剧演员片场纠纷封面">
+              <div class="card-body">
+                <div class="card-type">片场纠纷</div>
+                <h3>短剧《闪婚总裁》男主罢演风波</h3>
+                <p class="card-desc">剧组人员爆料男主因片酬尾款未结清在拍摄第 9 天离场，制片方反指其迟到 14 次并发布通告单截图。</p>
+                <div class="card-tags"><span>片酬争议</span><span>通告单</span><span>制片方回应</span></div>
+                <div class="card-meta"><span>热度 88.6</span><span>11-05 更新</span></div>
+              </div>
+            </article>
+            <article class="card">
+              <img src="https://picsum.photos/seed/heiliao-mcn05/400/300" width="400" height="300" loading="lazy" alt="MCN机构与达人分成争议封面">
+              <div class="card-body">
+                <div class="card-type">机构纠纷</div>
+                <h3>“美妆达人小鹿”与MCN解约互诉</h3>
+                <p class="card-desc">达人控诉机构拖欠广告分成 7 个月，机构则称其私接商单违反独家协议，双方各自晒出合同条款截图。</p>
+                <div class="card-tags"><span>分成纠纷</span><span>独家协议</span><span>合同截图</span></div>
+                <div class="card-meta"><span>热度 86.1</span><span>11-04 更新</span></div>
+              </div>
+            </article>
+            <article class="card">
+              <img src="https://picsum.photos/seed/heiliao-lianmai06/400/300" width="400" height="300" loading="lazy" alt="主播连麦对质事件封面">
+              <div class="card-body">
+                <div class="card-type">连麦对质</div>
+                <h3>“老陈说事”连麦对质“小美酱”</h3>
+                <p class="card-desc">两位主播在直播间就“刷单返现”指控进行 40 分钟连麦对质，期间多次互相放出后台数据与转账记录。</p>
+                <div class="card-tags"><span>连麦实录</span><span>后台数据</span><span>转账记录</span></div>
+                <div class="card-meta"><span>热度 84.5</span><span>11-08 更新</span></div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <!-- 最新更新 / 动态 -->
+        <section class="section" id="latest-updates">
+          <h2 class="section-title">最新更新动态 <span class="badge">10 条</span></h2>
+          <p class="section-intro">2026 年 11 月 8 日当天及前 30 天内的事件进展与条目上架记录。</p>
+          <ul class="compact-list">
+            <li><span class="item-name"><a href="/#精选推荐">“阿坤严选”燕窝饮品翻车</a></span><span class="item-desc">品牌方发布第二份检测报告，称送检批次与直播批次不一致。</span><span class="item-time">今天 10:20</span></li>
+            <li><span class="item-name"><a href="/#精选推荐">《星途2026》选手私联录音</a></span><span class="item-desc">节目组官微发声明称“已启动内部核查”，未点名选手。</span><span class="item-time">今天 09:05</span></li>
+            <li><span class="item-name"><a href="/#用户评论">“小鹿全球后援会”集资账目</a></span><span class="item-desc">前管理组放出第三批聊天记录，涉及一笔 5 万元“应急支出”。</span><span class="item-time">昨天 21:40</span></li>
+            <li><span class="item-name"><a href="/#精选推荐">短剧《闪婚总裁》男主罢演</a></span><span class="item-desc">制片方晒出完整通告单与打卡记录，男主暂未回应。</span><span class="item-time">昨天 18:15</span></li>
+            <li><span class="item-name"><a href="/#相关资讯">“美妆达人小鹿”与MCN解约</a></span><span class="item-desc">双方定于 11 月 12 日进行首次庭前调解。</span><span class="item-time">11-07 16:30</span></li>
+            <li><span class="item-name"><a href="/#精选推荐">“老陈说事”连麦对质</a></span><span class="item-desc">连麦完整录屏在站内上架，时长 42 分钟，含两次数据展示。</span><span class="item-time">11-07 12:00</span></li>
+            <li><span class="item-name"><a href="/#热门榜单">“小美酱”刷单指控</a></span><span class="item-desc">平台方发布违规处罚公告，账号被限流 15 天。</span><span class="item-time">11-06 20:10</span></li>
+            <li><span class="item-name"><a href="/#分类入口">“选秀回锅肉”选手过往言论</a></span><span class="item-desc">网友翻出 2023 年直播录屏，涉及对其他选手的评价。</span><span class="item-time">11-05 14:25</span></li>
+            <li><span class="item-name"><a href="/#相关资讯">“阿坤严选”关联品牌</a></span><span class="item-desc">品牌方天猫旗舰店已下架燕窝饮品，客服称“正在补检”。</span><span class="item-time">11-04 11:50</span></li>
+            <li><span class="item-name"><a href="/#用户评论">“星途2026”后援会打投明细</a></span><span class="item-desc">后援会公布 9 月至 10 月打投支出表格，总额 47.6 万元。</span><span class="item-time">11-03 09:30</span></li>
+          </ul>
+        </section>
+
+        <!-- 分类入口 -->
+        <section class="section" id="分类入口">
+          <h2 class="section-title">按类型筛选 <span class="badge">8 类</span></h2>
+          <p class="section-intro">点击分类可过滤上方精选条目，再次点击取消筛选。</p>
+          <div class="filter-hint" id="filterHint">
+            当前筛选：<span id="filterLabel"></span>
+            <button type="button" id="clearFilter">清除筛选</button>
+          </div>
+          <div class="category-grid" id="categoryGrid" role="group" aria-label="分类筛选">
+            <button class="category-item" data-type="带货翻车" type="button">带货翻车</button>
+            <button class="category-item" data-type="选秀内幕" type="button">选秀内幕</button>
+            <button class="category-item" data-type="饭圈纠纷" type="button">饭圈纠纷</button>
+            <button class="category-item" data-type="片场纠纷" type="button">片场纠纷</button>
+            <button class="category-item" data-type="机构纠纷" type="button">机构纠纷</button>
+            <button class="category-item" data-type="连麦对质" type="button">连麦对质</button>
+            <button class="category-item" data-type="私联录音" type="button">私联录音</button>
+            <button class="category-item" data-type="刷单返现" type="button">刷单返现</button>
+          </div>
+          <div class="no-result" id="noResult">没有匹配的条目，试试其他分类。</div>
+        </section>
+
+        <!-- 深度解析正文 -->
+        <section class="section deep-dive" id="深度解析">
+          <h2 class="section-title">黑料事件的类型差异与判断维度</h2>
+          <p>同样是“黑料”，不同垂类的信息结构、发酵路径和判断标准差异很大。理解这些差异，能帮助你在刷到一条爆料时快速定位它属于哪种类型、该看哪些关键证据。</p>
+
+          <h3>带货翻车类：看送检报告与批次对应关系</h3>
+          <p>带货翻车是当前黑料条目中信息最密集的一类。它的核心证据链通常包括：主播直播时的原话切片、产品详情页截图、买家收到的实物、第三方检测报告、品牌方回应。判断这类事件是否成立，关键看检测报告与直播批次的对应关系。常见争议点在于品牌方声称“送检批次与直播批次不一致”，此时需要对比生产批号、发货时间与检测机构受理时间。如果爆料方能提供同批次未拆封产品送检的完整视频，可信度会显著提升。</p>
+
+          <h3>选秀私联类：录音完整性与时间戳</h3>
+          <p>选秀选手私联粉丝的爆料，核心证据通常是录音或聊天记录。这类内容的判断重点是完整性和时间戳。一段 3 分钟的剪辑录音，与一段 40 分钟的未剪辑录音，说服力完全不同。聊天记录则要看是否有连续对话、头像与昵称是否与已知账号一致、时间戳是否与节目录制周期吻合。部分条目会涉及打投资金使用，此时后援会公示的账目表格、转账流水、管理组聊天记录会形成第二层证据。</p>
+
+          <h3>饭圈纠纷类：账目差额与角色立场</h3>
+          <p>饭圈后援会账目争议的看点在于差额如何解释。典型结构是：粉丝众筹总额、后援会公示支出、实际应援物成本之间的差额。判断这类事件，先看管理组是否公布完整流水，再看前后任管理组各自晒出的聊天记录是否互相印证。由于涉及角色立场，单一信源的指控需要谨慎对待，最好是两边账目对照着看。</p>
+
+          <h3>片场与机构纠纷：合同条款与履约记录</h3>
+          <p>短剧片场纠纷、MCN 与达人解约互诉，这类事件的核心是合同条款。常见争议包括片酬尾款支付节点、独家协议范围、私接商单的认定标准。判断时优先看双方晒出的合同截图是否包含完整条款编号、通告单与打卡记录是否对应、转账记录的时间与金额是否匹配合同约定。这类条目往往有后续法律程序，事件时间线会持续拉长。</p>
+
+          <ul>
+            <li><strong>信源层级：</strong>当事人自述 &lt; 单方聊天记录 &lt; 双方互证材料 &lt; 第三方检测/平台官方处理结果。</li>
+            <li><strong>时间戳：</strong>爆料内容的时间应落在事件发酵周期内，明显脱离时间线的截图需要警惕。</li>
+            <li><strong>批次与编号：</strong>产品类黑料要核对生产批号，录音类要核对完整时长与录制环境。</li>
+            <li><strong>后续动作：</strong>品牌方下架链接、平台处罚公告、节目组内部核查声明，都是推动事件进入下一阶段的关键节点。</li>
+          </ul>
+        </section>
+
+        <!-- 体验指南 / 消费路径 -->
+        <section class="section" id="体验指南">
+          <h2 class="section-title">吃瓜消费顺序与判断依据</h2>
+          <p style="font-size:14.5px; color:var(--ink-soft); line-height:1.8; margin-bottom:12px;">
+            面对每天新增的黑料条目，建议按“先看事件时间线 → 再看关键证据 → 最后看各方回应”的顺序推进。时间线能帮你快速判断事件处于哪个阶段：是刚曝光、发酵中、还是已有处理结果。证据部分优先看原始材料（录音、检测报告、合同截图），而不是二手转述。各方回应则决定了事件是否会反转或升级。
+          </p>
+          <p style="font-size:14.5px; color:var(--ink-soft); line-height:1.8; margin-bottom:12px;">
+            判断一个条目值不值得投入时间，可以看三个指标：信息完整度（是否有可验证的原始材料）、更新频率（当事人或相关方是否持续回应）、社区讨论质量（评论区是否有具体细节补充，而非单纯情绪输出）。同类条目之间比较时，优先选择时间线清晰、信源交叉更多的那个，避免在只有单方指控的条目上过早站队。
+          </p>
+          <p style="font-size:14.5px; color:var(--ink-soft); line-height:1.8;">
+            对于刚接触这类内容的浏览者，建议从“带货翻车”或“连麦对质”类型入手，因为这两类通常有直播切片和后台数据作为直接证据，信息结构相对完整，容易建立判断基准。随后再看“私联录音”和“饭圈账目”类，逐步适应多层信源交叉的阅读方式。
+          </p>
+        </section>
+
+        <!-- FAQ -->
+        <section class="section" id="FAQ">
+          <h2 class="section-title">常见问题</h2>
+          <details>
+            <summary>带货翻车类黑料一般多久更新一次进展？</summary>
+            <p>取决于品牌方和主播的回应速度。通常曝光后 24 小时内会出现品牌方第一份声明，48 小时内可能有送检报告或平台处理结果。如果超过一周没有新动作，事件热度会明显下降。</p>
+          </details>
+          <details>
+            <summary>私联录音类条目怎么判断是不是剪辑过的？</summary>
+            <p>看录音的完整时长、背景环境音是否连续、对话是否有突兀的跳切。完整的私联录音通常包含寒暄、正题、结束语三段，剪辑版往往只有冲突最激烈的片段，且时间戳对不上节目录制周期。</p>
+          </details>
+          <details>
+            <summary>饭圈后援会账目争议里，普通粉丝看什么最关键？</summary>
+            <p>先看后援会是否公布完整收支流水，再看前后任管理组各自晒出的聊天记录能否互相印证。重点核对众筹总额、应援物实际采购价、以及大额支出的转账凭证，差额通常出现在“应急支出”或“物流费用”这类模糊条目上。</p>
+          </details>
+          <details>
+            <summary>短剧片场纠纷和MCN解约纠纷，哪个后续更复杂？</summary>
+            <p>MCN 解约纠纷通常更复杂，因为涉及独家协议条款、私接商单认定、广告分成计算，往往需要法律程序才能厘清。片场纠纷多数在制片方晒出通告单和打卡记录后进入僵持，除非有一方拿出更直接的转账记录。</p>
+          </details>
+          <details>
+            <summary>第一次看这类内容，从哪个条目开始比较好？</summary>
+            <p>建议从“连麦对质”或“带货翻车”类型入手。连麦对质的证据（后台数据、转账记录）展示比较直接，带货翻车有检测报告和批次信息可以对照，两者都能帮你快速建立判断信源的基准。</p>
+          </details>
+          <details>
+            <summary>黑料里提到的“交叉信源”具体指什么？</summary>
+            <p>指两个或以上独立来源指向同一事实。比如爆料方晒出检测报告，品牌方承认该批次产品已下架，平台方也发布了违规处罚公告，这三方信息互相印证，可信度就高于单一信源。</p>
+          </details>
+        </section>
+
+        <!-- 用户评论 -->
+        <section class="section" id="用户评论">
+          <h2 class="section-title">用户评论 <span class="badge">12 条</span></h2>
+          <div class="comment-list">
+            <div class="comment-item"><div class="comment-user">瓜田里的猹</div><div class="comment-text">阿坤那个燕窝的检测报告我看了，批次号确实对不上，等品牌方第二份报告。</div></div>
+            <div class="comment-item"><div class="comment-user">熬夜吃瓜选手</div><div class="comment-text">星途私联录音 12 分钟版本比较完整，中间有段环境音是走廊广播，时间戳对得上录制期。</div></div>
+            <div class="comment-item"><div class="comment-user">不站队小透明</div><div class="comment-text">小鹿后援会账目那个差额，5 万块应急支出解释得有点含糊，等第三批流水。</div></div>
+            <div class="comment-item"><div class="comment-user">短剧观察员</div><div class="comment-text">闪婚总裁男主迟到 14 次的通告单我数了，确实有 14 条签到记录，但其中 3 次是补签。</div></div>
+            <div class="comment-item"><div class="comment-user">MCN打工人</div><div class="comment-text">美妆达人和机构互诉这个，独家协议条款写得太宽了，私接商单的界定本来就模糊。</div></div>
+            <div class="comment-item"><div class="comment-user">连麦爱好者</div><div class="comment-text">老陈和小美酱连麦后半段节奏有点乱，两边都在抢话，后台数据只截了一屏。</div></div>
+            <div class="comment-item"><div class="comment-user">理性吃瓜不跟风</div><div class="comment-text">选秀回锅肉那个过往言论录屏，2023 年的直播，当时语境和现在差别很大，谨慎看待。</div></div>
+            <div class="comment-item"><div class="comment-user">后援会前管理</div><div class="comment-text">账目争议里最怕遇到“应急支出”这种科目，没有明细就是一笔糊涂账。</div></div>
+            <div class="comment-item"><div class="comment-user">平台规则研究者</div><div class="comment-text">小美酱被限流 15 天，平台处罚公告写的是“违规营销”，和刷单返现的指控不完全对应。</div></div>
+            <div class="comment-item"><div class="comment-user">只看证据链</div><div class="comment-text">带货翻车类最怕品牌方玩“批次不一致”话术，同批次未拆封送检视频才是硬货。</div></div>
+            <div class="comment-item"><div class="comment-user">吃瓜不吐皮</div><div class="comment-text">短剧片酬尾款那个，制片方晒的转账记录只有一笔，男主说的尾款是另一笔，都没说全。</div></div>
+            <div class="comment-item"><div class="comment-user">录音鉴定爱好者</div><div class="comment-text">私联录音里那段跳切太明显了，中间少了一段自我介绍，完整版应该不止 12 分钟。</div></div>
+          </div>
+        </section>
+
+        <!-- 相关资讯 -->
+        <section class="section" id="相关资讯">
+          <h2 class="section-title">相关资讯 <span class="badge">6 条</span></h2>
+          <div class="news-grid">
+            <div class="news-item">
+              <img src="https://picsum.photos/seed/heiliao-news01/600/400" width="80" height="60" loading="lazy" alt="带货主播燕窝饮品事件资讯配图">
+              <div>
+                <h3><a href="/#精选推荐">“阿坤严选”燕窝饮品下架，品牌方称正补检</a></h3>
+                <div class="news-date">2026-11-07</div>
+                <div class="news-summary">天猫旗舰店已无法搜索到该产品，客服回应“正在补检，结果出来后统一说明”。</div>
+              </div>
+            </div>
+            <div class="news-item">
+              <img src="https://picsum.photos/seed/heiliao-news02/600/400" width="80" height="60" loading="lazy" alt="星途2026节目组声明资讯配图">
+              <div>
+                <h3><a href="/#最新更新">《星途2026》节目组启动内部核查</a></h3>
+                <div class="news-date">2026-11-08</div>
+                <div class="news-summary">官微声明未点名选手，称“如查实违规将按合同处理”，粉丝要求公布核查时间表。</div>
+              </div>
+            </div>
+            <div class="news-item">
+              <img src="https://picsum.photos/seed/heiliao-news03/600/400" width="80" height="60" loading="lazy" alt="MCN与达人解约调解资讯配图">
+              <div>
+                <h3><a href="/#相关资讯">美妆达人与MCN解约案 11 月 12 日庭前调解</a></h3>
+                <div class="news-date">2026-11-06</div>
+                <div class="news-summary">法院已受理双方互诉，首次调解定于 11 月 12 日上午，双方均表示将出席。</div>
+              </div>
+            </div>
+            <div class="news-item">
+              <img src="https://picsum.photos/seed/heiliao-news04/600/400" width="80" height="60" loading="lazy" alt="平台刷单处罚公告资讯配图">
+              <div>
+                <h3><a href="/#热门榜单">平台发布刷单违规处罚公告，小美酱账号限流</a></h3>
+                <div class="news-date">2026-11-06</div>
+                <div class="news-summary">公告列明违规类型为“虚假交易”，处罚期 15 天，账号商品橱窗同步关闭。</div>
+              </div>
+            </div>
+            <div class="news-item">
+              <img src="https://picsum.photos/seed/heiliao-news05/600/400" width="80" height="60" loading="lazy" alt="短剧行业片酬结算讨论资讯配图">
+              <div>
+                <h3><a href="/#相关资讯">短剧圈热议片酬尾款结算方式</a></h3>
+                <div class="news-date">2026-11-05</div>
+                <div class="news-summary">多个短剧剧组人员发帖讨论尾款支付节点，部分制片方开始采用“杀青即结 80%”模式。</div>
+              </div>
+            </div>
+            <div class="news-item">
+              <img src="https://picsum.photos/seed/heiliao-news06/600/400" width="80" height="60" loading="lazy" alt="选秀后援会打投明细公开资讯配图">
+              <div>
+                <h3><a href="/#用户评论">星途后援会公布 9-10 月打投明细</a></h3>
+                <div class="news-date">2026-11-03</div>
+                <div class="news-summary">表格显示两月打投支出合计 47.6 万元，其中“平台会员账号采购”一项占 31.2 万元。</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 相关推荐 -->
+        <section class="section" id="相关推荐">
+          <h2 class="section-title">延伸方向与条目索引</h2>
+          <p class="section-intro">按具体内容方向与条目名整理的延伸入口，与上方热门推荐角度区分。</p>
+          <div class="related-tags">
+            <a href="/#精选推荐">燕窝饮品检测报告对比</a>
+            <a href="/#精选推荐">选秀私联录音完整版</a>
+            <a href="/#用户评论">后援会账目流水怎么看</a>
+            <a href="/#深度解析">片场通告单与打卡记录</a>
+            <a href="/#最新更新">MCN独家协议条款解析</a>
+            <a href="/#热门榜单">主播连麦后台数据展示</a>
+            <a href="/#相关资讯">刷单返现平台处罚规则</a>
+            <a href="/#FAQ">交叉信源判断方法</a>
+          </div>
+        </section>
+
+        <!-- 补充板块：热门榜单 -->
+        <section class="section" id="热门榜单">
+          <h2 class="section-title">本周黑料热度榜 <span class="badge">截至 11-08</span></h2>
+          <table class="rank-table">
+            <thead>
+              <tr><th>#</th><th>条目</th><th>类型</th><th>热度</th></tr>
+            </thead>
+            <tbody>
+              <tr><td class="rank-num">1</td><td class="rank-title"><a href="/#精选推荐">“阿坤严选”燕窝饮品翻车</a></td><td>带货翻车</td><td>98.2</td></tr>
+              <tr><td class="rank-num">2</td><td class="rank-title"><a href="/#精选推荐">《星途2026》选手私联录音</a></td><td>选秀内幕</td><td>95.7</td></tr>
+              <tr><td class="rank-num">3</td><td class="rank-title"><a href="/#精选推荐">“小鹿全球后援会”集资账目</a></td><td>饭圈纠纷</td><td>91.3</td></tr>
+              <tr><td class="rank-num">4</td><td class="rank-title"><a href="/#精选推荐">短剧《闪婚总裁》男主罢演</a></td><td>片场纠纷</td><td>88.6</td></tr>
+              <tr><td class="rank-num">5</td><td class="rank-title"><a href="/#精选推荐">美妆达人小鹿与MCN解约</a></td><td>机构纠纷</td><td>86.1</td></tr>
+              <tr><td class="rank-num">6</td><td class="rank-title"><a href="/#精选推荐">老陈说事连麦对质小美酱</a></td><td>连麦对质</td><td>84.5</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+      </main>
+
+      <!-- 右侧辅助栏 -->
+      <aside class="side-aux" aria-label="辅助信息">
+        <div class="aux-card">
+          <h3>今日热榜</h3>
+          <ul class="hot-list">
+            <li><span class="rank">1</span><span class="hot-title"><a href="/#精选推荐">阿坤严选燕窝翻车</a></span></li>
+            <li><span class="rank">2</span><span class="hot-title"><a href="/#精选推荐">星途私联录音曝光</a></span></li>
+            <li><span class="rank">3</span><span class="hot-title"><a href="/#精选推荐">小鹿后援会账目争议</a></span></li>
+            <li><span class="rank">4</span><span class="hot-title"><a href="/#精选推荐">闪婚总裁男主罢演</a></span></li>
+            <li><span class="rank">5</span><span class="hot-title"><a href="/#精选推荐">老陈连麦对质小美酱</a></span></li>
+          </ul>
+        </div>
+        <div class="aux-card">
+          <h3>热门标签</h3>
+          <div class="tag-cloud">
+            <a href="/#分类入口">带货翻车</a>
+            <a href="/#分类入口">私联录音</a>
+            <a href="/#分类入口">集资账目</a>
+            <a href="/#分类入口">片场纠纷</a>
+            <a href="/#分类入口">独家协议</a>
+            <a href="/#分类入口">连麦对质</a>
+            <a href="/#分类入口">刷单返现</a>
+            <a href="/#分类入口">打投明细</a>
+            <a href="/#分类入口">检测报告</a>
+            <a href="/#分类入口">通告单</a>
+          </div>
+        </div>
+        <div class="aux-card">
+          <h3>更新提示</h3>
+          <p style="font-size:13px; color:var(--ink-muted); line-height:1.7;">
+            11 月 8 日已上架 3 条新进展：燕窝饮品品牌方第二份报告、星途节目组内部核查声明、老陈连麦完整录屏。
+          </p>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <!-- 页尾 -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand">
+          <svg viewBox="0 0 40 40" width="30" height="30" aria-hidden="true">
+            <rect x="2" y="2" width="36" height="36" rx="9" fill="#c0392b"/>
+            <circle cx="20" cy="16" r="6" fill="#fceae7"/>
+            <path d="M12 30 Q20 36 28 30" stroke="#fceae7" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            <circle cx="17" cy="15" r="1.6" fill="#c0392b"/>
+            <circle cx="23" cy="15" r="1.6" fill="#c0392b"/>
+          </svg>
+          <span>每日黑料在线观看</span>
+        </div>
+        <p class="footer-desc">聚合网红翻车、选秀内幕、带货争议、饭圈账目与片场纠纷等吃瓜条目，按事件时间线整理进展，提供类型筛选与信源判断参考。</p>
+      </div>
+      <div class="footer-col">
+        <h4>内容频道</h4>
+        <ul>
+          <li><a href="/#精选推荐">精选黑料</a></li>
+          <li><a href="/#最新更新">最新更新</a></li>
+          <li><a href="/#分类入口">分类筛选</a></li>
+          <li><a href="/#深度解析">深度解析</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>互动与延伸</h4>
+        <ul>
+          <li><a href="/#用户评论">用户评论</a></li>
+          <li><a href="/#FAQ">常见问题</a></li>
+          <li><a href="/#相关资讯">相关资讯</a></li>
+          <li><a href="/#热门榜单">热门榜单</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>类型索引</h4>
+        <ul>
+          <li><a href="/#分类入口">带货翻车</a></li>
+          <li><a href="/#分类入口">选秀内幕</a></li>
+          <li><a href="/#分类入口">饭圈纠纷</a></li>
+          <li><a href="/#分类入口">连麦对质</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 每日黑料在线观看 · 内容聚合示例</span>
+      <span>部分内容为示例数据，仅用于展示页面结构</span>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      // 分类筛选
+      var categoryBtns = document.querySelectorAll('.category-item');
+      var cards = document.querySelectorAll('#cardGrid .card');
+      var filterHint = document.getElementById('filterHint');
+      var filterLabel = document.getElementById('filterLabel');
+      var clearFilterBtn = document.getElementById('clearFilter');
+      var noResult = document.getElementById('noResult');
+      var activeType = null;
+
+      function applyFilter(type) {
+        var visibleCount = 0;
+        cards.forEach(function(card) {
+          var cardType = card.querySelector('.card-type').textContent.trim();
+          var tags = card.querySelectorAll('.card-tags span');
+          var tagTexts = Array.prototype.map.call(tags, function(t) { return t.textContent.trim(); });
+          var match = !type || cardType === type || tagTexts.indexOf(type) !== -1;
+          card.style.display = match ? '' : 'none';
+          if (match) visibleCount++;
+        });
+
+        categoryBtns.forEach(function(btn) {
+          btn.classList.toggle('active', btn.dataset.type === type);
+        });
+
+        if (type) {
+          filterLabel.textContent = type;
+          filterHint.classList.add('show');
+        } else {
+          filterHint.classList.remove('show');
+        }
+
+        noResult.classList.toggle('show', visibleCount === 0);
+      }
+
+      categoryBtns.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var type = this.dataset.type;
+          if (activeType === type) {
+            activeType = null;
+            applyFilter(null);
+          } else {
+            activeType = type;
+            applyFilter(type);
+          }
+        });
+      });
+
+      clearFilterBtn.addEventListener('click', function() {
+        activeType = null;
+        applyFilter(null);
+      });
+
+      // 搜索功能
+      var searchInput = document.getElementById('searchInput');
+      var searchBtn = document.getElementById('searchBtn');
+
+      function performSearch() {
+        var query = searchInput.value.trim().toLowerCase();
+        if (!query) {
+          applyFilter(activeType);
+          return;
+        }
+        var visibleCount = 0;
+        cards.forEach(function(card) {
+          var title = card.querySelector('h3').textContent.toLowerCase();
+          var desc = card.querySelector('.card-desc').textContent.toLowerCase();
+          var type = card.querySelector('.card-type').textContent.toLowerCase();
+          var tags = card.querySelectorAll('.card-tags span');
+          var tagText = Array.prototype.map.call(tags, function(t) { return t.textContent.toLowerCase(); }).join(' ');
+          var match = title.indexOf(query) !== -1 || desc.indexOf(query) !== -1 || type.indexOf(query) !== -1 || tagText.indexOf(query) !== -1;
+          card.style.display = match ? '' : 'none';
+          if (match) visibleCount++;
+        });
+        noResult.classList.toggle('show', visibleCount === 0);
+        filterHint.classList.remove('show');
+        categoryBtns.forEach(function(btn) { btn.classList.remove('active'); });
+      }
+
+      searchBtn.addEventListener('click', performSearch);
+      searchInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          performSearch();
+        }
+      });
+
+      // 清除搜索时恢复
+      searchInput.addEventListener('input', function() {
+        if (this.value.trim() === '') {
+          applyFilter(activeType);
+        }
+      });
+
+      // 初始状态
+      applyFilter(null);
+    })();
+  </script>
+
+</body>
+            </html>
