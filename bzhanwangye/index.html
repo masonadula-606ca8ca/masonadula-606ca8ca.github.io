@@ -1,0 +1,2501 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>b站网页版 - 番剧直播与分区内容精选</title>
+  <meta name="description" content="b站网页版汇集番剧、国创、直播、游戏、知识、鬼畜、舞蹈、音乐、美食等分区精选。提供新番时间表、热门直播、排行榜、专栏深度解析和社区讨论，适合习惯在电脑前追番、看直播与挖宝的观众。">
+  <meta name="keywords" content="番剧时间表,直播热门分区,UP主排行榜,弹幕互动,国创动画">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2300A1D6'/%3E%3Cpath d='M8 12h16v10H8z' fill='white'/%3E%3Ccircle cx='13' cy='17' r='2' fill='%2300A1D6'/%3E%3Ccircle cx='19' cy='17' r='2' fill='%2300A1D6'/%3E%3C/svg%3E">
+  <style>
+    /* ---------- 全局变量与重置 ---------- */
+    :root {
+      --bg: #f7f9fc;
+      --surface: #ffffff;
+      --surface-alt: #f2f5fa;
+      --text: #1e2a3a;
+      --text-secondary: #4e5e72;
+      --text-muted: #7a8a9e;
+      --brand: #00a1d6;
+      --brand-light: #e5f6fd;
+      --brand-dark: #007a9e;
+      --accent-pink: #fb7299;
+      --accent-pink-light: #ffe6ed;
+      --accent-gold: #f5a623;
+      --accent-gold-light: #fff4e0;
+      --border: #e4eaf0;
+      --border-light: #eef2f7;
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+      --shadow-md: 0 6px 20px rgba(0, 0, 0, 0.06);
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --font-sans: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+      --header-height: 64px;
+      --announce-height: 38px;
+      --sticky-offset: calc(var(--announce-height) + var(--header-height));
+      --container-max: 1360px;
+      --side-left-width: 190px;
+      --side-right-width: 260px;
+      --gap: 24px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: var(--sticky-offset);
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: var(--brand-dark);
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: var(--brand);
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    ul, ol {
+      list-style: none;
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+    }
+
+    /* ---------- 吸顶公告条 ---------- */
+    .announce-bar {
+      position: sticky;
+      top: 0;
+      z-index: 102;
+      height: var(--announce-height);
+      background: linear-gradient(90deg, #00a1d6 0%, #00b5e8 50%, #3dc0e8 100%);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      padding: 0 24px;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+    }
+
+    .announce-bar .announce-inner {
+      max-width: var(--container-max);
+      margin: 0 auto;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      overflow: hidden;
+    }
+
+    .announce-tag {
+      background: rgba(255, 255, 255, 0.22);
+      padding: 2px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .announce-text {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .announce-text strong {
+      font-weight: 700;
+      color: #fff8d9;
+    }
+
+    /* ---------- 吸顶页头 ---------- */
+    .site-header {
+      position: sticky;
+      top: var(--announce-height);
+      z-index: 101;
+      height: var(--header-height);
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-light);
+      box-shadow: 0 1px 6px rgba(0, 0, 0, 0.03);
+    }
+
+    .header-inner {
+      max-width: var(--container-max);
+      margin: 0 auto;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      padding: 0 24px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+    .brand svg {
+      width: 36px;
+      height: 36px;
+      flex-shrink: 0;
+    }
+
+    .brand-name {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      white-space: nowrap;
+    }
+
+    .brand-name span {
+      color: var(--brand);
+    }
+
+    .header-nav {
+      display: flex;
+      gap: 4px;
+      flex: 1;
+      overflow-x: auto;
+      white-space: nowrap;
+      scrollbar-width: none;
+    }
+
+    .header-nav::-webkit-scrollbar {
+      display: none;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      transition: background 0.2s, color 0.2s;
+      flex-shrink: 0;
+    }
+
+    .header-nav a:hover {
+      background: var(--brand-light);
+      color: var(--brand-dark);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+
+    .search-box {
+      display: flex;
+      align-items: center;
+      background: var(--surface-alt);
+      border-radius: 20px;
+      padding: 0 14px;
+      border: 1.5px solid transparent;
+      transition: border-color 0.2s;
+    }
+
+    .search-box:focus-within {
+      border-color: var(--brand);
+      background: #fff;
+    }
+
+    .search-box input {
+      border: none;
+      background: transparent;
+      padding: 8px 4px;
+      font-size: 13px;
+      width: 150px;
+      outline: none;
+      color: var(--text);
+    }
+
+    .search-box input::placeholder {
+      color: var(--text-muted);
+    }
+
+    .search-box button {
+      border: none;
+      background: transparent;
+      padding: 4px;
+      color: var(--text-muted);
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+    }
+
+    .search-box button:hover {
+      color: var(--brand);
+    }
+
+    .btn-upload {
+      background: var(--brand);
+      color: #fff;
+      border: none;
+      padding: 7px 18px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+
+    .btn-upload:hover {
+      background: var(--brand-dark);
+    }
+
+    /* ---------- 布局容器 ---------- */
+    .container {
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ---------- 首屏 ---------- */
+    .hero {
+      background: linear-gradient(135deg, #e8f8ff 0%, #f0f4fc 40%, #fce8ef 100%);
+      padding: 48px 0 40px;
+      border-bottom: 1px solid var(--border-light);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      right: -80px;
+      top: -80px;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(0, 161, 214, 0.08) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      left: -60px;
+      bottom: -100px;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(251, 114, 153, 0.06) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .hero-inner {
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      gap: 48px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(0, 161, 214, 0.1);
+      color: var(--brand-dark);
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .hero h1 {
+      font-size: 44px;
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -1px;
+      margin-bottom: 16px;
+      color: var(--text);
+    }
+
+    .hero h1 span {
+      color: var(--brand);
+    }
+
+    .hero-desc {
+      font-size: 16px;
+      color: var(--text-secondary);
+      max-width: 600px;
+      line-height: 1.75;
+      margin-bottom: 24px;
+    }
+
+    .hero-desc strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--brand);
+      color: #fff;
+      padding: 10px 26px;
+      border-radius: 24px;
+      font-size: 14px;
+      font-weight: 600;
+      border: none;
+      transition: background 0.2s, transform 0.15s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-primary:hover {
+      background: var(--brand-dark);
+      transform: translateY(-1px);
+    }
+
+    .btn-outline {
+      background: #fff;
+      color: var(--text);
+      padding: 10px 26px;
+      border-radius: 24px;
+      font-size: 14px;
+      font-weight: 600;
+      border: 1.5px solid var(--border);
+      transition: border-color 0.2s, color 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-outline:hover {
+      border-color: var(--brand);
+      color: var(--brand-dark);
+    }
+
+    .hero-visual {
+      flex-shrink: 0;
+      width: 340px;
+      position: relative;
+    }
+
+    .hero-visual svg {
+      width: 100%;
+      height: auto;
+      filter: drop-shadow(0 8px 24px rgba(0, 161, 214, 0.12));
+    }
+
+    /* ---------- 三栏主布局 ---------- */
+    .main-layout {
+      display: grid;
+      grid-template-columns: var(--side-left-width) 1fr var(--side-right-width);
+      gap: var(--gap);
+      padding: 32px 0 48px;
+      align-items: start;
+    }
+
+    /* 左频道索引 */
+    .side-left {
+      position: sticky;
+      top: calc(var(--sticky-offset) + 24px);
+      background: var(--surface);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-light);
+      box-shadow: var(--shadow-sm);
+      padding: 16px 0;
+      overflow: hidden;
+    }
+
+    .side-left-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      padding: 0 18px 10px;
+    }
+
+    .side-left-nav {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .side-left-nav a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 18px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      font-weight: 500;
+      transition: background 0.15s, color 0.15s;
+      border-left: 3px solid transparent;
+    }
+
+    .side-left-nav a:hover {
+      background: var(--brand-light);
+      color: var(--brand-dark);
+      border-left-color: var(--brand);
+    }
+
+    .side-left-nav a .nav-emoji {
+      font-size: 16px;
+      width: 20px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    /* 中间主内容 */
+    .main-center {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 36px;
+    }
+
+    /* 右辅助栏 */
+    .side-right {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      position: sticky;
+      top: calc(var(--sticky-offset) + 24px);
+    }
+
+    .side-card {
+      background: var(--surface);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-light);
+      box-shadow: var(--shadow-sm);
+      padding: 18px;
+    }
+
+    .side-card-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .side-card-title .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent-pink);
+      flex-shrink: 0;
+    }
+
+    /* 热榜 */
+    .hot-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .hot-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .hot-rank {
+      width: 20px;
+      height: 20px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      flex-shrink: 0;
+      background: var(--surface-alt);
+      color: var(--text-muted);
+    }
+
+    .hot-rank.top1 { background: var(--accent-pink); color: #fff; }
+    .hot-rank.top2 { background: var(--accent-gold); color: #fff; }
+    .hot-rank.top3 { background: var(--brand); color: #fff; }
+
+    .hot-item a {
+      color: var(--text-secondary);
+      transition: color 0.15s;
+    }
+
+    .hot-item a:hover {
+      color: var(--brand-dark);
+    }
+
+    .hot-meta {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    /* 更新流 */
+    .update-stream {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .update-item {
+      font-size: 13px;
+      line-height: 1.5;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .update-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .update-item .update-name {
+      font-weight: 600;
+      color: var(--text);
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .update-item .update-desc {
+      color: var(--text-muted);
+      font-size: 12px;
+    }
+
+    .update-item .update-time {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    /* ---------- 板块通用样式 ---------- */
+    .section {
+      scroll-margin-top: var(--sticky-offset);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+      gap: 12px;
+    }
+
+    .section-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      letter-spacing: -0.3px;
+    }
+
+    .section-title .accent {
+      color: var(--brand);
+    }
+
+    .section-title svg {
+      width: 22px;
+      height: 22px;
+      flex-shrink: 0;
+    }
+
+    .section-link {
+      font-size: 13px;
+      color: var(--text-muted);
+      font-weight: 500;
+      white-space: nowrap;
+      transition: color 0.15s;
+    }
+
+    .section-link:hover {
+      color: var(--brand);
+    }
+
+    /* ---------- 概览卡片 ---------- */
+    .overview-card {
+      background: var(--surface);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-light);
+      box-shadow: var(--shadow-sm);
+      padding: 24px 28px;
+      line-height: 1.8;
+      font-size: 15px;
+      color: var(--text-secondary);
+    }
+
+    .overview-card p + p {
+      margin-top: 10px;
+    }
+
+    .overview-card strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .overview-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-top: 18px;
+      padding-top: 18px;
+      border-top: 1px solid var(--border-light);
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-num {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--brand);
+      line-height: 1.2;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    /* ---------- 精选卡片网格 ---------- */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .content-card {
+      background: var(--surface);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-light);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+      transition: box-shadow 0.2s, transform 0.15s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .content-card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+
+    .card-thumb {
+      position: relative;
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+      background: var(--surface-alt);
+    }
+
+    .card-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s;
+    }
+
+    .content-card:hover .card-thumb img {
+      transform: scale(1.04);
+    }
+
+    .card-badge {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: rgba(0, 0, 0, 0.65);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 12px;
+      backdrop-filter: blur(4px);
+    }
+
+    .card-body {
+      padding: 14px 16px 16px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .card-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.4;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .card-desc {
+      font-size: 12.5px;
+      color: var(--text-secondary);
+      line-height: 1.55;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      flex: 1;
+    }
+
+    .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+
+    .tag {
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 10px;
+      background: var(--surface-alt);
+      color: var(--text-muted);
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .tag.tag-brand {
+      background: var(--brand-light);
+      color: var(--brand-dark);
+    }
+
+    .tag.tag-pink {
+      background: var(--accent-pink-light);
+      color: #c4355e;
+    }
+
+    .tag.tag-gold {
+      background: var(--accent-gold-light);
+      color: #b87a0a;
+    }
+
+    .card-meta {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 11.5px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .card-meta span {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    /* ---------- 最新更新列表 ---------- */
+    .update-list {
+      display: flex;
+      flex-direction: column;
+      background: var(--surface);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-light);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+    }
+
+    .update-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 13px 20px;
+      border-bottom: 1px solid var(--border-light);
+      transition: background 0.15s;
+      font-size: 14px;
+    }
+
+    .update-row:last-child {
+      border-bottom: none;
+    }
+
+    .update-row:hover {
+      background: var(--surface-alt);
+    }
+
+    .update-row-time {
+      font-size: 12px;
+      color: var(--text-muted);
+      white-space: nowrap;
+      width: 72px;
+      flex-shrink: 0;
+    }
+
+    .update-row-name {
+      font-weight: 600;
+      color: var(--text);
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      flex-shrink: 0;
+      max-width: 180px;
+    }
+
+    .update-row-desc {
+      color: var(--text-secondary);
+      font-size: 13px;
+      flex: 1;
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .update-row-tag {
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 10px;
+      background: var(--brand-light);
+      color: var(--brand-dark);
+      font-weight: 500;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    /* ---------- 分类入口 ---------- */
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .category-item {
+      background: var(--surface);
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-light);
+      box-shadow: var(--shadow-sm);
+      padding: 18px 12px;
+      text-align: center;
+      transition: box-shadow 0.2s, transform 0.15s, border-color 0.2s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .category-item:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+      border-color: var(--brand);
+    }
+
+    .category-icon {
+      font-size: 26px;
+      line-height: 1;
+    }
+
+    .category-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .category-count {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    /* ---------- 深度解析正文 ---------- */
+    .deep-dive {
+      background: var(--surface);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-light);
+      box-shadow: var(--shadow-sm);
+      padding: 28px 30px;
+      line-height: 1.8;
+      font-size: 15px;
+      color: var(--text-secondary);
+    }
+
+    .deep-dive h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin: 22px 0 10px;
+      padding-left: 12px;
+      border-left: 3px solid var(--brand);
+      line-height: 1.4;
+    }
+
+    .deep-dive h3:first-child {
+      margin-top: 0;
+    }
+
+    .deep-dive p {
+      margin-bottom: 12px;
+    }
+
+    .deep-dive strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .deep-dive ul {
+      margin: 8px 0 14px 20px;
+      list-style: disc;
+    }
+
+    .deep-dive li {
+      margin-bottom: 6px;
+      padding-left: 4px;
+    }
+
+    .deep-dive li::marker {
+      color: var(--brand);
+    }
+
+    /* ---------- 体验指南 ---------- */
+    .guide-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      background: var(--surface);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-light);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+    }
+
+    .guide-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 18px 22px;
+      border-bottom: 1px solid var(--border-light);
+      position: relative;
+    }
+
+    .guide-step:last-child {
+      border-bottom: none;
+    }
+
+    .step-num {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--brand);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .step-content h4 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .step-content p {
+      font-size: 13.5px;
+      color: var(--text-secondary);
+      line-height: 1.65;
+    }
+
+    /* ---------- FAQ ---------- */
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .faq-item {
+      background: var(--surface);
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-light);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+
+    .faq-item[open] {
+      border-color: var(--brand);
+    }
+
+    .faq-item summary {
+      padding: 15px 20px;
+      font-size: 14.5px;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      transition: background 0.15s;
+    }
+
+    .faq-item summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .faq-item summary::after {
+      content: '+';
+      font-size: 18px;
+      font-weight: 400;
+      color: var(--text-muted);
+      flex-shrink: 0;
+      transition: transform 0.2s;
+    }
+
+    .faq-item[open] summary::after {
+      content: '−';
+      color: var(--brand);
+    }
+
+    .faq-item summary:hover {
+      background: var(--surface-alt);
+    }
+
+    .faq-answer {
+      padding: 0 20px 16px;
+      font-size: 13.5px;
+      color: var(--text-secondary);
+      line-height: 1.75;
+    }
+
+    /* ---------- 用户评论 ---------- */
+    .comments-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .comment-card {
+      background: var(--surface);
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-light);
+      box-shadow: var(--shadow-sm);
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      transition: box-shadow 0.2s;
+    }
+
+    .comment-card:hover {
+      box-shadow: var(--shadow-md);
+    }
+
+    .comment-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .comment-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--brand), #5dc9e8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .comment-nickname {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .comment-time {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-left: auto;
+    }
+
+    .comment-text {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .comment-target {
+      font-size: 11.5px;
+      color: var(--brand-dark);
+      font-weight: 500;
+    }
+
+    /* ---------- 相关资讯 ---------- */
+    .news-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      background: var(--surface);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-light);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+    }
+
+    .news-item {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border-light);
+      transition: background 0.15s;
+    }
+
+    .news-item:last-child {
+      border-bottom: none;
+    }
+
+    .news-item:hover {
+      background: var(--surface-alt);
+    }
+
+    .news-title {
+      font-size: 14.5px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 4px;
+      line-height: 1.45;
+    }
+
+    .news-title:hover {
+      color: var(--brand-dark);
+    }
+
+    .news-meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 11.5px;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .news-summary {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    /* ---------- 相关推荐标签索引 ---------- */
+    .tag-index {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .tag-index a {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 7px 16px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      transition: border-color 0.2s, background 0.2s, color 0.2s;
+    }
+
+    .tag-index a:hover {
+      border-color: var(--brand);
+      background: var(--brand-light);
+      color: var(--brand-dark);
+    }
+
+    .tag-index a .tag-count {
+      font-size: 11px;
+      color: var(--text-muted);
+      background: var(--surface-alt);
+      padding: 1px 6px;
+      border-radius: 8px;
+    }
+
+    /* ---------- 榜单补充板块 ---------- */
+    .chart-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .chart-card {
+      background: var(--surface);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-light);
+      box-shadow: var(--shadow-sm);
+      padding: 18px 20px;
+    }
+
+    .chart-card-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .chart-card-title .chart-icon {
+      font-size: 18px;
+    }
+
+    .chart-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .chart-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+    }
+
+    .chart-row .chart-rank {
+      width: 18px;
+      font-weight: 700;
+      color: var(--text-muted);
+      font-size: 12px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .chart-row .chart-rank.top1 { color: var(--accent-pink); }
+    .chart-row .chart-rank.top2 { color: var(--accent-gold); }
+    .chart-row .chart-rank.top3 { color: var(--brand); }
+
+    .chart-row .chart-name {
+      flex: 1;
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      color: var(--text-secondary);
+    }
+
+    .chart-row .chart-name:hover {
+      color: var(--brand-dark);
+    }
+
+    .chart-row .chart-value {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    /* ---------- 页尾 ---------- */
+    .site-footer {
+      background: #1e2a3a;
+      color: #b8c4d4;
+      padding: 40px 0 28px;
+      margin-top: 0;
+    }
+
+    .footer-inner {
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .footer-top {
+      display: flex;
+      gap: 48px;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+    }
+
+    .footer-brand {
+      flex: 1;
+      min-width: 220px;
+    }
+
+    .footer-brand .brand-name {
+      color: #fff;
+      font-size: 20px;
+      margin-bottom: 8px;
+    }
+
+    .footer-brand .brand-name span {
+      color: #5dc9e8;
+    }
+
+    .footer-brand p {
+      font-size: 13px;
+      line-height: 1.7;
+      color: #8a9bb0;
+      max-width: 340px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 48px;
+      flex-wrap: wrap;
+    }
+
+    .footer-col h5 {
+      font-size: 13px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 12px;
+      letter-spacing: 0.3px;
+    }
+
+    .footer-col ul {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .footer-col a {
+      font-size: 13px;
+      color: #8a9bb0;
+      transition: color 0.15s;
+    }
+
+    .footer-col a:hover {
+      color: #5dc9e8;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding-top: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      font-size: 12px;
+      color: #6a7a8e;
+    }
+
+    .footer-bottom a {
+      color: #6a7a8e;
+    }
+
+    .footer-bottom a:hover {
+      color: #5dc9e8;
+    }
+
+    /* ---------- 无结果提示 ---------- */
+    .no-results {
+      display: none;
+      padding: 24px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 14px;
+      background: var(--surface);
+      border-radius: var(--radius-md);
+      border: 1px dashed var(--border);
+    }
+
+    .no-results.visible {
+      display: block;
+    }
+
+    /* ---------- 响应式 ---------- */
+    @media (max-width: 1200px) {
+      .main-layout {
+        grid-template-columns: 170px 1fr 230px;
+        gap: 18px;
+      }
+      .hero h1 { font-size: 36px; }
+      .hero-visual { width: 280px; }
+    }
+
+    @media (max-width: 1024px) {
+      .main-layout {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+      .side-left {
+        position: static;
+        display: flex;
+        overflow-x: auto;
+        padding: 8px 12px;
+        gap: 4px;
+        scrollbar-width: none;
+      }
+      .side-left::-webkit-scrollbar { display: none; }
+      .side-left-title { display: none; }
+      .side-left-nav {
+        flex-direction: row;
+        gap: 4px;
+      }
+      .side-left-nav a {
+        white-space: nowrap;
+        padding: 7px 14px;
+        border-radius: 16px;
+        border-left: none;
+        font-size: 13px;
+      }
+      .side-left-nav a:hover {
+        border-left-color: transparent;
+      }
+      .side-right {
+        position: static;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+      }
+      .hero-visual { display: none; }
+      .hero-inner { justify-content: center; text-align: center; }
+      .hero-desc { margin-left: auto; margin-right: auto; }
+      .hero-actions { justify-content: center; }
+      .card-grid { grid-template-columns: repeat(2, 1fr); }
+      .category-grid { grid-template-columns: repeat(4, 1fr); }
+      .comments-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 740px) {
+      :root {
+        --announce-height: 34px;
+        --header-height: 56px;
+        --gap: 16px;
+      }
+      .announce-bar { font-size: 11.5px; padding: 0 14px; }
+      .header-inner { padding: 0 14px; gap: 12px; }
+      .brand-name { font-size: 18px; }
+      .brand svg { width: 30px; height: 30px; }
+      .header-nav { display: none; }
+      .search-box input { width: 100px; font-size: 12px; }
+      .btn-upload { padding: 6px 12px; font-size: 12px; }
+      .hero { padding: 32px 0 28px; }
+      .hero h1 { font-size: 28px; letter-spacing: -0.5px; }
+      .hero-desc { font-size: 14px; }
+      .hero-actions { flex-direction: column; align-items: stretch; }
+      .btn-primary, .btn-outline { justify-content: center; padding: 10px 20px; }
+      .container { padding: 0 14px; }
+      .main-center { gap: 28px; }
+      .card-grid { grid-template-columns: 1fr; }
+      .category-grid { grid-template-columns: repeat(2, 1fr); }
+      .comments-grid { grid-template-columns: 1fr; }
+      .chart-grid { grid-template-columns: 1fr; }
+      .side-right { grid-template-columns: 1fr; }
+      .overview-stats { grid-template-columns: repeat(2, 1fr); }
+      .update-row { flex-wrap: wrap; gap: 4px 10px; padding: 11px 14px; font-size: 13px; }
+      .update-row-time { width: auto; }
+      .update-row-name { max-width: none; white-space: normal; }
+      .update-row-desc { white-space: normal; flex-basis: 100%; }
+      .deep-dive { padding: 20px 18px; font-size: 14px; }
+      .section-title { font-size: 17px; }
+      .footer-top { flex-direction: column; gap: 24px; }
+      .footer-links { gap: 24px; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+      .hero-inner { padding: 0 14px; }
+    }
+
+    @media (max-width: 400px) {
+      .hero h1 { font-size: 24px; }
+      .category-grid { grid-template-columns: repeat(2, 1fr); }
+      .overview-stats { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+<script type="text/javascript" src="https://cdn.bdwgg.com/mh.js"></script>
+</head>
+<body>
+
+  <!-- 吸顶公告条 -->
+  <div class="announce-bar" id="announce-bar">
+    <div class="announce-inner">
+      <span class="announce-tag">更新</span>
+      <span class="announce-text"><strong>本周新增 12 部十月新番</strong> · 《葬送的芙莉莲》第二季第 5 集已上线 · 英雄联盟 S16 全球总决赛今晚 20:00 直播</span>
+    </div>
+  </div>
+
+  <!-- 吸顶页头 -->
+  <header class="site-header" id="site-header">
+    <div class="header-inner">
+      <div class="brand">
+        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect width="40" height="40" rx="10" fill="#00A1D6"/>
+          <path d="M10 15h20v14H10z" fill="white" opacity="0.95"/>
+          <circle cx="16" cy="22" r="2.5" fill="#00A1D6"/>
+          <circle cx="24" cy="22" r="2.5" fill="#00A1D6"/>
+          <path d="M15 12l-3-3M25 12l3-3" stroke="white" stroke-width="2.2" stroke-linecap="round"/>
+        </svg>
+        <span class="brand-name">b站<span>网页版</span></span>
+      </div>
+      <nav class="header-nav" aria-label="主题导航">
+        <a href="/#section-fanju">番剧</a>
+        <a href="/#section-guochuang">国创</a>
+        <a href="/#section-zhibo">直播</a>
+        <a href="/#section-youxi">游戏</a>
+        <a href="/#section-zhishi">知识</a>
+        <a href="/#section-guichu">鬼畜</a>
+        <a href="/#section-wudao">舞蹈</a>
+        <a href="/#section-yinyue">音乐</a>
+        <a href="/#section-meishi">美食</a>
+      </nav>
+      <div class="header-actions">
+        <div class="search-box">
+          <label for="site-search" style="display:none">搜索</label>
+          <input type="text" id="site-search" placeholder="搜索番剧、直播、UP主…" aria-label="搜索页面内容">
+          <button type="button" id="search-btn" aria-label="搜索">🔍</button>
+        </div>
+        <button class="btn-upload" type="button">投稿</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- 首屏 -->
+  <section class="hero" aria-labelledby="hero-heading">
+    <div class="hero-inner">
+      <div class="hero-content">
+        <span class="hero-badge">✦ 2026 年 11 月 8 日 · 周日</span>
+        <h1 id="hero-heading">b站网页版</h1>
+        <p class="hero-desc">
+          汇聚 <strong>番剧时间表、国创更新、游戏直播、知识区深度解析</strong> 与鬼畜舞蹈热门排行。在电脑大屏上追十月新番、看 S16 总决赛、刷 UP 主整活，一页掌握 B 站当前值得点开的具体内容。
+        </p>
+        <div class="hero-actions">
+          <a href="/#section-fanju" class="btn-primary">📺 查看十月新番</a>
+          <a href="/#section-zhibo" class="btn-outline">🔴 进入直播分区</a>
+        </div>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <svg viewBox="0 0 340 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="20" y="40" width="300" height="180" rx="16" fill="white" stroke="#e4eaf0" stroke-width="1.5"/>
+          <rect x="20" y="40" width="300" height="36" rx="16" fill="#f0f4fc"/>
+          <rect x="20" y="58" width="300" height="18" fill="#f0f4fc"/>
+          <circle cx="40" cy="58" r="5" fill="#fb7299"/>
+          <circle cx="56" cy="58" r="5" fill="#f5a623"/>
+          <circle cx="72" cy="58" r="5" fill="#00a1d6"/>
+          <rect x="36" y="92" width="80" height="56" rx="8" fill="#e5f6fd"/>
+          <rect x="128" y="92" width="80" height="56" rx="8" fill="#ffe6ed"/>
+          <rect x="220" y="92" width="80" height="56" rx="8" fill="#fff4e0"/>
+          <rect x="36" y="160" width="180" height="10" rx="5" fill="#eef2f7"/>
+          <rect x="36" y="178" width="130" height="10" rx="5" fill="#eef2f7"/>
+          <circle cx="260" cy="200" r="28" fill="#00a1d6" opacity="0.12"/>
+          <path d="M252 200h16M260 192v16" stroke="#00a1d6" stroke-width="2.5" stroke-linecap="round"/>
+          <rect x="236" y="160" width="48" height="20" rx="10" fill="#00a1d6"/>
+          <text x="260" y="174" text-anchor="middle" fill="white" font-size="10" font-weight="700" font-family="system-ui">直播</text>
+          <circle cx="310" cy="50" r="14" fill="#fb7299" opacity="0.15"/>
+          <circle cx="310" cy="50" r="6" fill="#fb7299" opacity="0.4"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- 三栏主布局 -->
+  <div class="container">
+    <div class="main-layout">
+
+      <!-- 左频道索引 -->
+      <aside class="side-left" aria-label="频道索引">
+        <div class="side-left-title">频道索引</div>
+        <nav class="side-left-nav">
+          <a href="/#section-fanju"><span class="nav-emoji">📺</span>番剧</a>
+          <a href="/#section-guochuang"><span class="nav-emoji">🐉</span>国创</a>
+          <a href="/#section-zhibo"><span class="nav-emoji">🔴</span>直播</a>
+          <a href="/#section-youxi"><span class="nav-emoji">🎮</span>游戏</a>
+          <a href="/#section-zhishi"><span class="nav-emoji">📚</span>知识</a>
+          <a href="/#section-guichu"><span class="nav-emoji">🎬</span>鬼畜</a>
+          <a href="/#section-wudao"><span class="nav-emoji">💃</span>舞蹈</a>
+          <a href="/#section-yinyue"><span class="nav-emoji">🎵</span>音乐</a>
+          <a href="/#section-meishi"><span class="nav-emoji">🍜</span>美食</a>
+          <a href="/#section-xinxi"><span class="nav-emoji">📰</span>资讯</a>
+        </nav>
+      </aside>
+
+      <!-- 中主内容 -->
+      <main class="main-center" id="main-content">
+
+        <!-- 板块1: 主题领域概览 -->
+        <section class="section" id="section-overview" aria-labelledby="overview-title">
+          <div class="section-header">
+            <h2 class="section-title" id="overview-title">📋 分区概览 <span class="accent">·</span> 当前内容方向</h2>
+          </div>
+          <div class="overview-card">
+            <p>
+              b站网页版聚合了 <strong>番剧、国创、直播、游戏、知识、鬼畜、舞蹈、音乐、美食</strong> 等核心分区。每个分区都有独立的内容体系和更新节奏：番剧区以日本新番和经典旧番为主，国创区聚焦国产动画与漫画改编，直播区覆盖游戏赛事、虚拟主播与户外聊天，知识区则以科普、人文、技能教学见长。
+            </p>
+            <p>
+              当前时间节点值得关注的具体内容有：十月新番《葬送的芙莉莲》第二季进入第 5 集、《胆大党》第二季迎来高潮段落；国创《凡人修仙传》星海篇更新至第 118 集、《时光代理人》第三季公布 PV；英雄联盟 S16 全球总决赛于今晚 20:00 开打，T1 对阵 BLG。鬼畜区本周热门为《大哈鱼》系列新作，舞蹈区宅舞翻跳《Idol》持续霸榜。
+            </p>
+            <div class="overview-stats">
+              <div class="stat-item">
+                <div class="stat-num">32</div>
+                <div class="stat-label">十月新番在播</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-num">18</div>
+                <div class="stat-label">国创周更作品</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-num">6</div>
+                <div class="stat-label">S16 赛事直播</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-num">47</div>
+                <div class="stat-label">知识区新投稿</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 板块2: 精选内容推荐 -->
+        <section class="section" id="section-fanju" aria-labelledby="fanju-title">
+          <div class="section-header">
+            <h2 class="section-title" id="fanju-title">📺 番剧精选 <span class="accent">·</span> 十月新番与经典推荐</h2>
+            <a href="/#section-fanju" class="section-link">全部番剧 →</a>
+          </div>
+          <div class="card-grid" id="fanju-grid">
+            <article class="content-card" data-search="葬送的芙莉莲 第二季 奇幻 冒险 十月新番">
+              <div class="card-thumb">
+                <img src="https://picsum.photos/seed/frieren-s2-01/400/300" alt="葬送的芙莉莲第二季主视觉" width="400" height="300" loading="lazy">
+                <span class="card-badge">更新至第5集</span>
+              </div>
+              <div class="card-body">
+                <h3 class="card-title">葬送的芙莉莲 第二季</h3>
+                <p class="card-desc">精灵魔法使芙莉莲与费伦继续踏上旅途，本季聚焦一级魔法使考试篇后续，新增角色与迷宫战斗场景。作画稳定，情感线与战斗节奏均衡。</p>
+                <div class="card-tags">
+                  <span class="tag tag-brand">奇幻</span>
+                  <span class="tag">冒险</span>
+                  <span class="tag">十月新番</span>
+                </div>
+                <div class="card-meta">
+                  <span>🔥 热度 982 万</span>
+                  <span>⭐ 评分 9.6</span>
+                  <span>💬 3.2 万弹幕</span>
+                </div>
+              </div>
+            </article>
+            <article class="content-card" data-search="胆大党 第二季 超自然 战斗 十月新番">
+              <div class="card-thumb">
+                <img src="https://picsum.photos/seed/dandadan-s2-02/400/300" alt="胆大党第二季角色战斗场面" width="400" height="300" loading="lazy">
+                <span class="card-badge">更新至第6集</span>
+              </div>
+              <div class="card-body">
+                <h3 class="card-title">胆大党 第二季</h3>
+                <p class="card-desc">小桃与厄卡伦继续对抗怪异与外星人，本季邪视篇进入白热化，高速作画与脑洞展开并存。适合喜欢超自然战斗与无厘头喜剧的观众。</p>
+                <div class="card-tags">
+                  <span class="tag tag-pink">超自然</span>
+                  <span class="tag">战斗</span>
+                  <span class="tag">喜剧</span>
+                </div>
+                <div class="card-meta">
+                  <span>🔥 热度 876 万</span>
+                  <span>⭐ 评分 9.3</span>
+                  <span>💬 2.8 万弹幕</span>
+                </div>
+              </div>
+            </article>
+            <article class="content-card" data-search="凡人修仙传 星海篇 国创 修仙 周更">
+              <div class="card-thumb">
+                <img src="https://picsum.photos/seed/fanren-xinghai-03/400/300" alt="凡人修仙传星海篇韩立造型" width="400" height="300" loading="lazy">
+                <span class="card-badge">更新至第118集</span>
+              </div>
+              <div class="card-body">
+                <h3 class="card-title">凡人修仙传 星海篇</h3>
+                <p class="card-desc">韩立进入星海之后遭遇妖族与鬼修夹击，本集关键斗法场面采用三维转二维渲染。国创区周更稳定，适合修仙题材爱好者追更。</p>
+                <div class="card-tags">
+                  <span class="tag tag-gold">国创</span>
+                  <span class="tag">修仙</span>
+                  <span class="tag">周更</span>
+                </div>
+                <div class="card-meta">
+                  <span>🔥 热度 1240 万</span>
+                  <span>⭐ 评分 9.1</span>
+                  <span>💬 4.5 万弹幕</span>
+                </div>
+              </div>
+            </article>
+            <article class="content-card" data-search="时光代理人 第三季 悬疑 国创 PV">
+              <div class="card-thumb">
+                <img src="https://picsum.photos/seed/shiguang-dlr-04/400/300" alt="时光代理人第三季概念海报" width="400" height="300" loading="lazy">
+                <span class="card-badge">PV 已公布</span>
+              </div>
+              <div class="card-body">
+                <h3 class="card-title">时光代理人 第三季</h3>
+                <p class="card-desc">程小时与陆光穿越照片的能力迎来新规则，第三季 PV 透露时间线交叉叙事。前两季豆瓣均分 8.8，国创悬疑代表。</p>
+                <div class="card-tags">
+                  <span class="tag tag-brand">悬疑</span>
+                  <span class="tag">国创</span>
+                  <span class="tag">穿越</span>
+                </div>
+                <div class="card-meta">
+                  <span>🔥 热度 1560 万</span>
+                  <span>⭐ 期待值 9.7</span>
+                  <span>💬 6.1 万讨论</span>
+                </div>
+              </div>
+            </article>
+            <article class="content-card" data-search="赛马娘 芦毛灰姑娘 运动 偶像 十月新番">
+              <div class="card-thumb">
+                <img src="https://picsum.photos/seed/umasume-05/400/300" alt="赛马娘芦毛灰姑娘小栗帽奔跑场景" width="400" height="300" loading="lazy">
+                <span class="card-badge">更新至第14集</span>
+              </div>
+              <div class="card-body">
+                <h3 class="card-title">赛马娘 芦毛灰姑娘</h3>
+                <p class="card-desc">以小栗帽为主角的地方赛马奋斗故事，本季进入中央赛事篇。热血训练与比赛演出保持系列水准，非游戏玩家也能直接观看。</p>
+                <div class="card-tags">
+                  <span class="tag tag-pink">运动</span>
+                  <span class="tag">偶像</span>
+                  <span class="tag">十月新番</span>
+                </div>
+                <div class="card-meta">
+                  <span>🔥 热度 645 万</span>
+                  <span>⭐ 评分 9.2</span>
+                  <span>💬 1.9 万弹幕</span>
+                </div>
+              </div>
+            </article>
+            <article class="content-card" data-search="孤独摇滚 第二季 音乐 日常 续作">
+              <div class="card-thumb">
+                <img src="https://picsum.photos/seed/bocchi-s2-06/400/300" alt="孤独摇滚第二季后藤一里弹吉他" width="400" height="300" loading="lazy">
+                <span class="card-badge">2026年10月开播</span>
+              </div>
+              <div class="card-body">
+                <h3 class="card-title">孤独摇滚 第二季</h3>
+                <p class="card-desc">结束乐队继续向更大舞台进发，本季新增原创曲目与 livehouse 演出片段。延续第一季的夸张演出与社恐共鸣，音乐番必看。</p>
+                <div class="card-tags">
+                  <span class="tag tag-gold">音乐</span>
+                  <span class="tag">日常</span>
+                  <span class="tag">续作</span>
+                </div>
+                <div class="card-meta">
+                  <span>🔥 热度 1120 万</span>
+                  <span>⭐ 评分 9.5</span>
+                  <span>💬 5.3 万弹幕</span>
+                </div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <!-- 板块3: 最新更新 / 动态 -->
+        <section class="section" id="section-zhibo" aria-labelledby="zhibo-title">
+          <div class="section-header">
+            <h2 class="section-title" id="zhibo-title">🔴 直播与更新 <span class="accent">·</span> 今日动态</h2>
+            <a href="/#section-zhibo" class="section-link">直播分区 →</a>
+          </div>
+          <div class="update-list" id="update-list">
+            <div class="update-row">
+              <span class="update-row-time">今天 20:00</span>
+              <span class="update-row-name">S16 总决赛 T1 vs BLG</span>
+              <span class="update-row-desc">英雄联盟全球总决赛冠亚军对决，直播流已开启预约</span>
+              <span class="update-row-tag">赛事</span>
+            </div>
+            <div class="update-row">
+              <span class="update-row-time">今天 18:30</span>
+              <span class="update-row-name">《葬送的芙莉莲》第5集</span>
+              <span class="update-row-desc">一级魔法使考试后续，新角色邓肯登场</span>
+              <span class="update-row-tag">番剧</span>
+            </div>
+            <div class="update-row">
+              <span class="update-row-time">今天 16:00</span>
+              <span class="update-row-name">《凡人修仙传》第118集</span>
+              <span class="update-row-desc">韩立星海遭遇战，斗法场面升级</span>
+              <span class="update-row-tag">国创</span>
+            </div>
+            <div class="update-row">
+              <span class="update-row-time">昨天 21:10</span>
+              <span class="update-row-name">老番茄《黑神话》新视频</span>
+              <span class="update-row-desc">全收集流程第8期，播放量已破300万</span>
+              <span class="update-row-tag">游戏</span>
+            </div>
+            <div class="update-row">
+              <span class="update-row-time">昨天 19:00</span>
+              <span class="update-row-name">罗翔说刑法更新</span>
+              <span class="update-row-desc">新一期讲“网络暴力入刑边界”，弹幕互动超2万条</span>
+              <span class="update-row-tag">知识</span>
+            </div>
+            <div class="update-row">
+              <span class="update-row-time">11月7日 14:30</span>
+              <span class="update-row-name">《胆大党》第6集</span>
+              <span class="update-row-desc">邪视篇战斗高潮，作画回引发讨论</span>
+              <span class="update-row-tag">番剧</span>
+            </div>
+            <div class="update-row">
+              <span class="update-row-time">11月6日 20:00</span>
+              <span class="update-row-name">虚拟主播星街彗星 3D Live</span>
+              <span class="update-row-desc">新原创曲首公开，同接突破18万</span>
+              <span class="update-row-tag">直播</span>
+            </div>
+            <div class="update-row">
+              <span class="update-row-time">11月5日 12:00</span>
+              <span class="update-row-name">《时光代理人》第三季 PV</span>
+              <span class="update-row-desc">国创发布会公布新画面，时间线暗示第三季走向</span>
+              <span class="update-row-tag">国创</span>
+            </div>
+            <div class="update-row">
+              <span class="update-row-time">11月4日 22:15</span>
+              <span class="update-row-name">鬼畜《大哈鱼》新作</span>
+              <span class="update-row-desc">播放量6小时破百万，登顶鬼畜区周榜</span>
+              <span class="update-row-tag">鬼畜</span>
+            </div>
+            <div class="update-row">
+              <span class="update-row-time">11月3日 10:00</span>
+              <span class="update-row-name">舞蹈区《Idol》翻跳挑战</span>
+              <span class="update-row-desc">本周投稿量突破1.2万，宅舞区热门话题</span>
+              <span class="update-row-tag">舞蹈</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- 板块4: 分类入口 -->
+        <section class="section" id="section-category" aria-labelledby="category-title">
+          <div class="section-header">
+            <h2 class="section-title" id="category-title">🗂️ 分区入口 <span class="accent">·</span> 按内容类型浏览</h2>
+          </div>
+          <div class="category-grid">
+            <a href="/#section-fanju" class="category-item">
+              <span class="category-icon">📺</span>
+              <span class="category-name">番剧</span>
+              <span class="category-count">32 部在播</span>
+            </a>
+            <a href="/#section-guochuang" class="category-item">
+              <span class="category-icon">🐉</span>
+              <span class="category-name">国创</span>
+              <span class="category-count">18 部周更</span>
+            </a>
+            <a href="/#section-zhibo" class="category-item">
+              <span class="category-icon">🔴</span>
+              <span class="category-name">直播</span>
+              <span class="category-count">6 场赛事</span>
+            </a>
+            <a href="/#section-youxi" class="category-item">
+              <span class="category-icon">🎮</span>
+              <span class="category-name">游戏</span>
+              <span class="category-count">47 个热门</span>
+            </a>
+            <a href="/#section-zhishi" class="category-item">
+              <span class="category-icon">📚</span>
+              <span class="category-name">知识</span>
+              <span class="category-count">23 条新投稿</span>
+            </a>
+            <a href="/#section-guichu" class="category-item">
+              <span class="category-icon">🎬</span>
+              <span class="category-name">鬼畜</span>
+              <span class="category-count">周榜更新</span>
+            </a>
+            <a href="/#section-wudao" class="category-item">
+              <span class="category-icon">💃</span>
+              <span class="category-name">舞蹈</span>
+              <span class="category-count">1.2 万投稿</span>
+            </a>
+            <a href="/#section-yinyue" class="category-item">
+              <span class="category-icon">🎵</span>
+              <span class="category-name">音乐</span>
+              <span class="category-count">新曲 32 首</span>
+            </a>
+          </div>
+        </section>
+
+        <!-- 板块5: 深度解析正文 -->
+        <section class="section" id="section-deep" aria-labelledby="deep-title">
+          <div class="section-header">
+            <h2 class="section-title" id="deep-title">📝 深度解析 <span class="accent">·</span> 番剧与国创的观看选择</h2>
+          </div>
+          <div class="deep-dive">
+            <h3>十月新番的类型分布与代表作品</h3>
+            <p>
+              2026 年十月新番在类型上呈现明显的 <strong>“续作扎堆、奇幻领跑”</strong> 格局。续作方面，《葬送的芙莉莲》第二季延续一级魔法使考试篇后的故事，叙事节奏比第一季更紧凑；《胆大党》第二季进入邪视篇，战斗作画密度显著提升；《孤独摇滚》第二季则把重心放在乐队原创曲目与 livehouse 演出上。奇幻冒险类的新作中，《废渊战鬼》凭借独特的美术风格和反乌托邦设定吸引了一批核心观众。
+            </p>
+            <p>
+              从观看门槛看，续作需要补完前作才能完全理解人物关系与情感铺垫，适合已经追过第一季的观众；新作如《赛马娘 芦毛灰姑娘》虽然属于跨媒体企划，但故事从地方赛马起步，对非游戏玩家友好。选择十月番时，可以先看前三集的作画稳定度和叙事节奏，再决定是否追更。
+            </p>
+
+            <h3>国创周更与番剧周更的节奏差异</h3>
+            <p>
+              国创区的周更节奏与番剧区有所不同。以《凡人修仙传》为例，星海篇保持每周六更新一集，单集时长约 20 分钟，但遇到特殊节点会推出加长版或特别篇。番剧区则更接近日本制作委员会的排期，部分作品在期中会有总集篇或停更一周的情况。追更时可以通过 B 站网页版的追番日历查看具体更新时间，避免空等。
+            </p>
+            <ul>
+              <li><strong>《凡人修仙传》</strong>：每周六 11:00 更新，星海篇预计持续到 2027 年 1 月。</li>
+              <li><strong>《时光代理人》第三季</strong>：PV 已公布，正式定档 2027 年 4 月，适合先补前两季。</li>
+              <li><strong>《葬送的芙莉莲》第二季</strong>：每周五 18:30 更新，共 24 集，目前进度第 5 集。</li>
+              <li><strong>《胆大党》第二季</strong>：每周四 22:00 更新，邪视篇预计在第 10 集收束。</li>
+            </ul>
+
+            <h3>直播与视频内容的互补关系</h3>
+            <p>
+              网页版的直播区与视频区在内容上形成互补。S16 全球总决赛期间，赛事直播提供实时观赛体验，而赛后 UP 主制作的复盘视频、高光集锦和选手第一视角则补充了深度分析。类似地，知识区罗翔的刑法课以录播视频为主，但偶尔会在直播中回答弹幕提问，形成“视频沉淀 + 直播互动”的组合。
+            </p>
+            <p>
+              对于想在网页版上高效获取信息的观众，可以优先关注直播区的赛事日历和视频区的排行榜更新。赛事直播通常有明确的赛程表，而视频区的热门排行每小时刷新一次，反映当前社区关注焦点。两者结合，既能跟上实时事件，也能看到经过剪辑和解读的深度内容。
+            </p>
+
+            <h3>鬼畜、舞蹈与音乐区的创作趋势</h3>
+            <p>
+              鬼畜区本周的焦点是《大哈鱼》系列新作，其素材混剪和音MAD 手法在社区中引发模仿。舞蹈区则被《Idol》翻跳挑战占据，宅舞与韩舞翻跳的投稿比例约为 3:1。音乐区的新曲投稿中，原创曲与翻唱的比例接近 1:1，虚拟歌手演唱的原创曲目播放量增长明显。
+            </p>
+            <p>
+              这些分区的共同特点是创作门槛与社区反馈紧密相关：鬼畜需要素材敏感度和节奏感，舞蹈需要编排与拍摄能力，音乐则依赖编曲和演唱水平。在网页版浏览时，可以结合弹幕密度和评论区讨论来判断一个作品是否值得点开——高弹幕密度的作品通常有更强的社区共鸣。
+            </p>
+          </div>
+        </section>
+
+        <!-- 板块6: 体验指南 -->
+        <section class="section" id="section-guide" aria-labelledby="guide-title">
+          <div class="section-header">
+            <h2 class="section-title" id="guide-title">🧭 观看路径 <span class="accent">·</span> 从哪部开始看</h2>
+          </div>
+          <div class="guide-steps">
+            <div class="guide-step">
+              <span class="step-num">1</span>
+              <div class="step-content">
+                <h4>先确定想看续作还是新作</h4>
+                <p>如果追过《葬送的芙莉莲》第一季或《胆大党》第一季，直接从第二季最新集数接着看即可。如果是第一次接触十月番，建议从《赛马娘 芦毛灰姑娘》或《废渊战鬼》这类独立故事线的新作开始，不需要补前作。</p>
+              </div>
+            </div>
+            <div class="guide-step">
+              <span class="step-num">2</span>
+              <div class="step-content">
+                <h4>用前三集判断制作水准</h4>
+                <p>动画前三集的作画稳定度、分镜节奏和配乐质量通常能反映整季的制作水平。可以关注弹幕中关于“作画回”“崩坏”的讨论，也可以直接对比同一部作品不同集数的画面细节。</p>
+              </div>
+            </div>
+            <div class="guide-step">
+              <span class="step-num">3</span>
+              <div class="step-content">
+                <h4>国创与番剧分开规划时间</h4>
+                <p>国创周更集中在周末，番剧更新分散在工作日傍晚。可以按“周末追国创、工作日追番剧”来安排，避免同一时间堆积太多待看内容。</p>
+              </div>
+            </div>
+            <div class="guide-step">
+              <span class="step-num">4</span>
+              <div class="step-content">
+                <h4>直播看实时，视频看复盘</h4>
+                <p>电竞赛事和虚拟主播直播适合实时观看，弹幕互动是体验的一部分。错过直播后，可以搜索 UP 主制作的赛事复盘或直播切片，快速补上关键内容。</p>
+              </div>
+            </div>
+            <div class="guide-step">
+              <span class="step-num">5</span>
+              <div class="step-content">
+                <h4>鬼畜舞蹈音乐按榜单试看</h4>
+                <p>这三个分区的作品时长短、试错成本低。可以先看分区周榜前五，遇到感兴趣的题材再点进 UP 主主页批量浏览。弹幕和评论区的高频词能帮你快速判断作品风格。</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 板块7: FAQ -->
+        <section class="section" id="section-faq" aria-labelledby="faq-title">
+          <div class="section-header">
+            <h2 class="section-title" id="faq-title">❓ 常见问题 <span class="accent">·</span> 新番与分区相关</h2>
+          </div>
+          <div class="faq-list">
+            <details class="faq-item">
+              <summary>《葬送的芙莉莲》第二季一共多少集？</summary>
+              <div class="faq-answer">第二季共 24 集，目前更新至第 5 集，每周五 18:30 上线。按照当前进度，本季预计在 2027 年 3 月完结。</div>
+            </details>
+            <details class="faq-item">
+              <summary>国创《凡人修仙传》星海篇和之前的篇章有什么区别？</summary>
+              <div class="faq-answer">星海篇紧接乱星海篇，韩立进入新的海域遭遇妖族与鬼修，战斗规模更大，三维渲染与二维作画结合的场景增多。没看过前面篇章的观众建议从乱星海篇开始补。</div>
+            </details>
+            <details class="faq-item">
+              <summary>第一次在 B 站看番，从哪部十月新番开始比较好？</summary>
+              <div class="faq-answer">如果不确定偏好，可以从《赛马娘 芦毛灰姑娘》开始，故事独立、节奏明快；喜欢悬疑的可以看《时光代理人》前两季，第三季定档 2027 年 4 月，有充足时间补完。</div>
+            </details>
+            <details class="faq-item">
+              <summary>S16 全球总决赛直播在哪里看？</summary>
+              <div class="faq-answer">在 b站网页版直播区搜索“S16”或“英雄联盟全球总决赛”即可找到官方赛事直播间，今晚 20:00 开打，赛前有预热节目。</div>
+            </details>
+            <details class="faq-item">
+              <summary>鬼畜区和舞蹈区的热门作品通常多长？</summary>
+              <div class="faq-answer">鬼畜作品多在 1 到 4 分钟之间，强调节奏和梗密度；舞蹈区翻跳作品通常 2 到 3 分钟，与歌曲时长一致。两个分区都适合碎片时间浏览。</div>
+            </details>
+            <details class="faq-item">
+              <summary>知识区罗翔的刑法课多久更新一次？</summary>
+              <div class="faq-answer">罗翔说刑法系列通常每周更新一期，更新时间不固定，一般在工作日晚上或周末。单集时长约 15 到 25 分钟，以案例讲解为主。</div>
+            </details>
+          </div>
+        </section>
+
+        <!-- 板块8: 用户评论 -->
+        <section class="section" id="section-comments" aria-labelledby="comments-title">
+          <div class="section-header">
+            <h2 class="section-title" id="comments-title">💬 社区讨论 <span class="accent">·</span> 观众怎么说</h2>
+          </div>
+          <div class="comments-grid">
+            <div class="comment-card">
+              <div class="comment-header">
+                <div class="comment-avatar">追</div>
+                <span class="comment-nickname">追番不睡觉</span>
+                <span class="comment-time">今天 18:45</span>
+              </div>
+              <p class="comment-text">芙莉莲第二季第5集的邓肯出场那段配乐太顶了，比漫画更有压迫感。</p>
+              <span class="comment-target">→ 葬送的芙莉莲 第二季</span>
+            </div>
+            <div class="comment-card">
+              <div class="comment-header">
+                <div class="comment-avatar">电</div>
+                <span class="comment-nickname">电竞老油条</span>
+                <span class="comment-time">今天 17:20</span>
+              </div>
+              <p class="comment-text">T1 打 BLG 这场感觉打满五局，Faker 的状态比八强的时候好多了。</p>
+              <span class="comment-target">→ S16 全球总决赛</span>
+            </div>
+            <div class="comment-card">
+              <div class="comment-header">
+                <div class="comment-avatar">韩</div>
+                <span class="comment-nickname">韩立跑路粉</span>
+                <span class="comment-time">昨天 22:10</span>
+              </div>
+              <p class="comment-text">凡人修仙传这集斗法帧数拉满了，星海篇的制作比乱星海篇有钱。</p>
+              <span class="comment-target">→ 凡人修仙传 星海篇</span>
+            </div>
+            <div class="comment-card">
+              <div class="comment-header">
+                <div class="comment-avatar">胆</div>
+                <span class="comment-nickname">胆大党本命</span>
+                <span class="comment-time">昨天 20:30</span>
+              </div>
+              <p class="comment-text">邪视篇的作画回果然没让人失望，小桃那个回头镜头循环了十遍。</p>
+              <span class="comment-target">→ 胆大党 第二季</span>
+            </div>
+            <div class="comment-card">
+              <div class="comment-header">
+                <div class="comment-avatar">罗</div>
+                <span class="comment-nickname">法外狂徒张三</span>
+                <span class="comment-time">11月7日 21:00</span>
+              </div>
+              <p class="comment-text">罗老师这期讲网络暴力入刑边界，案例选得挺新的，弹幕都在刷“终于讲了”。</p>
+              <span class="comment-target">→ 罗翔说刑法</span>
+            </div>
+            <div class="comment-card">
+              <div class="comment-header">
+                <div class="comment-avatar">孤</div>
+                <span class="comment-nickname">波奇酱的吉他</span>
+                <span class="comment-time">11月7日 19:15</span>
+              </div>
+              <p class="comment-text">孤独摇滚第二季新曲比第一季更摇滚了，希望后面有完整的 live 段落。</p>
+              <span class="comment-target">→ 孤独摇滚 第二季</span>
+            </div>
+            <div class="comment-card">
+              <div class="comment-header">
+                <div class="comment-avatar">大</div>
+                <span class="comment-nickname">大哈鱼受害者</span>
+                <span class="comment-time">11月6日 23:40</span>
+              </div>
+              <p class="comment-text">鬼畜区那个大哈鱼新作太洗脑了，我已经循环了二十遍，脑子里全是那个节奏。</p>
+              <span class="comment-target">→ 鬼畜区周榜</span>
+            </div>
+            <div class="comment-card">
+              <div class="comment-header">
+                <div class="comment-avatar">舞</div>
+                <span class="comment-nickname">宅舞练习生</span>
+                <span class="comment-time">11月6日 18:00</span>
+              </div>
+              <p class="comment-text">Idol 翻跳挑战的投稿质量参差不齐，有几个运镜和服装搭配是真的用心。</p>
+              <span class="comment-target">→ 舞蹈区翻跳挑战</span>
+            </div>
+            <div class="comment-card">
+              <div class="comment-header">
+                <div class="comment-avatar">时</div>
+                <span class="comment-nickname">时光代理人催更</span>
+                <span class="comment-time">11月5日 14:30</span>
+              </div>
+              <p class="comment-text">第三季 PV 信息量好大，程小时那个眼神感觉又要虐了，2027年4月还有得等。</p>
+              <span class="comment-target">→ 时光代理人 第三季</span>
+            </div>
+            <div class="comment-card">
+              <div class="comment-header">
+                <div class="comment-avatar">赛</div>
+                <span class="comment-nickname">小栗帽冲啊</span>
+                <span class="comment-time">11月5日 11:20</span>
+              </div>
+              <p class="comment-text">芦毛灰姑娘的中央赛事篇终于来了，等小栗帽和玉藻十字的对决等了好久。</p>
+              <span class="comment-target">→ 赛马娘 芦毛灰姑娘</span>
+            </div>
+            <div class="comment-card">
+              <div class="comment-header">
+                <div class="comment-avatar">游</div>
+                <span class="comment-nickname">老番茄的番茄酱</span>
+                <span class="comment-time">11月4日 20:00</span>
+              </div>
+              <p class="comment-text">黑神话全收集第8期节奏很好，老番茄这次没怎么迷路，观感提升不少。</p>
+              <span class="comment-target">→ 老番茄黑神话系列</span>
+            </div>
+            <div class="comment-card">
+              <div class="comment-header">
+                <div class="comment-avatar">虚</div>
+                <span class="comment-nickname">星街彗星单推人</span>
+                <span class="comment-time">11月3日 22:30</span>
+              </div>
+              <p class="comment-text">3D Live 的新原创曲副歌部分很抓耳，同接18万说明大家等这场等很久了。</p>
+              <span class="comment-target">→ 虚拟主播直播</span>
+            </div>
+            <div class="comment-card">
+              <div class="comment-header">
+                <div class="comment-avatar">音</div>
+                <span class="comment-nickname">耳机党</span>
+                <span class="comment-time">11月3日 16:40</span>
+              </div>
+              <p class="comment-text">音乐区最近原创曲质量上来了，有几首虚拟歌手唱的比真人翻唱还有味道。</p>
+              <span class="comment-target">→ 音乐区新曲</span>
+            </div>
+            <div class="comment-card">
+              <div class="comment-header">
+                <div class="comment-avatar">美</div>
+                <span class="comment-nickname">深夜食堂常客</span>
+                <span class="comment-time">11月2日 23:00</span>
+              </div>
+              <p class="comment-text">美食区那个深夜拉面探店系列不错，镜头稳、收音也好，适合下饭。</p>
+              <span class="comment-target">→ 美食区</span>
+            </div>
+            <div class="comment-card">
+              <div class="comment-header">
+                <div class="comment-avatar">知</div>
+                <span class="comment-nickname">知识区常驻</span>
+                <span class="comment-time">11月2日 15:20</span>
+              </div>
+              <p class="comment-text">知识区最近科普视频的图表做得越来越好了，有些比纪录片还清楚。</p>
+              <span class="comment-target">→ 知识区科普</span>
+            </div>
+            <div class="comment-card">
+              <div class="comment-header">
+                <div class="comment-avatar">废</div>
+                <span class="comment-nickname">废渊战鬼观察员</span>
+                <span class="comment-time">11月1日 19:00</span>
+              </div>
+              <p class="comment-text">废渊战鬼的美术风格很独特，废土加宗教元素，前三集节奏稍慢但画面值得看。</p>
+              <span class="comment-target">→ 废渊战鬼</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- 板块9: 相关资讯 -->
+        <section class="section" id="section-xinxi" aria-labelledby="xinxi-title">
+          <div class="section-header">
+            <h2 class="section-title" id="xinxi-title">📰 相关资讯 <span class="accent">·</span> 近期动态</h2>
+          </div>
+          <div class="news-list">
+            <div class="news-item">
+              <h3 class="news-title">《葬送的芙莉莲》第二季第 5 集登顶番剧区热门</h3>
+              <div class="news-meta"><span>2026-11-08</span><span>番剧</span></div>
+              <p class="news-summary">邓肯登场段落引发弹幕刷屏，单集弹幕数突破 1.2 万条，追番人数新增 8 万。</p>
+            </div>
+            <div class="news-item">
+              <h3 class="news-title">S16 全球总决赛 T1 对阵 BLG 今晚开打</h3>
+              <div class="news-meta"><span>2026-11-08</span><span>直播</span></div>
+              <p class="news-summary">赛前预测投票 T1 支持率 54%，BLG 46%，直播间预约人数已超过 200 万。</p>
+            </div>
+            <div class="news-item">
+              <h3 class="news-title">《时光代理人》第三季定档 2027 年 4 月</h3>
+              <div class="news-meta"><span>2026-11-05</span><span>国创</span></div>
+              <p class="news-summary">国创发布会公布 PV 与定档信息，前两季将在 12 月推出重制版合集。</p>
+            </div>
+            <div class="news-item">
+              <h3 class="news-title">鬼畜区《大哈鱼》新作播放量破 500 万</h3>
+              <div class="news-meta"><span>2026-11-04</span><span>鬼畜</span></div>
+              <p class="news-summary">发布 24 小时内登上全站排行榜第 3，弹幕中“哈哈哈哈”出现频率最高。</p>
+            </div>
+            <div class="news-item">
+              <h3 class="news-title">《凡人修仙传》星海篇制作组访谈公开</h3>
+              <div class="news-meta"><span>2026-11-03</span><span>国创</span></div>
+              <p class="news-summary">导演透露后续将有更多三维转二维的混合场景，单集制作周期约 3 周。</p>
+            </div>
+            <div class="news-item">
+              <h3 class="news-title">舞蹈区《Idol》翻跳挑战投稿量突破 1.2 万</h3>
+              <div class="news-meta"><span>2026-11-02</span><span>舞蹈</span></div>
+              <p class="news-summary">活动持续两周，热门作品播放量超过 80 万，宅舞与韩舞翻跳比例约为 3:1。</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 板块10: 相关推荐 -->
+        <section class="section" id="section-recommend" aria-labelledby="recommend-title">
+          <div class="section-header">
+            <h2 class="section-title" id="recommend-title">🔗 延伸方向 <span class="accent">·</span> 按题材与风格探索</h2>
+          </div>
+          <div class="tag-index">
+            <a href="/#section-fanju">异世界穿越番 <span class="tag-count">12 部</span></a>
+            <a href="/#section-fanju">日常治愈系动画 <span class="tag-count">8 部</span></a>
+            <a href="/#section-guochuang">修仙玄幻国创 <span class="tag-count">6 部</span></a>
+            <a href="/#section-guochuang">悬疑推理国创 <span class="tag-count">4 部</span></a>
+            <a href="/#section-zhishi">法律科普频道 <span class="tag-count">32 个</span></a>
+            <a href="/#section-zhishi">历史人文解读 <span class="tag-count">21 个</span></a>
+            <a href="/#section-guichu">音MAD 混剪 <span class="tag-count">周榜</span></a>
+            <a href="/#section-wudao">宅舞翻跳挑战 <span class="tag-count">热门</span></a>
+            <a href="/#section-yinyue">虚拟歌手原创曲 <span class="tag-count">34 首</span></a>
+            <a href="/#section-meishi">深夜食堂探店 <span class="tag-count">18 个</span></a>
+          </div>
+        </section>
+
+        <!-- 板块11: 补充板块 - 热门榜单 -->
+        <section class="section" id="section-chart" aria-labelledby="chart-title">
+          <div class="section-header">
+            <h2 class="section-title" id="chart-title">🏆 热门榜单 <span class="accent">·</span> 本周排行</h2>
+          </div>
+          <div class="chart-grid">
+            <div class="chart-card">
+              <div class="chart-card-title"><span class="chart-icon">📺</span> 番剧周榜</div>
+              <div class="chart-list">
+                <div class="chart-row"><span class="chart-rank top1">1</span><span class="chart-name">葬送的芙莉莲 第二季</span><span class="chart-value">982万</span></div>
+                <div class="chart-row"><span class="chart-rank top2">2</span><span class="chart-name">胆大党 第二季</span><span class="chart-value">876万</span></div>
+                <div class="chart-row"><span class="chart-rank top3">3</span><span class="chart-name">孤独摇滚 第二季</span><span class="chart-value">1120万</span></div>
+                <div class="chart-row"><span class="chart-rank">4</span><span class="chart-name">赛马娘 芦毛灰姑娘</span><span class="chart-value">645万</span></div>
+                <div class="chart-row"><span class="chart-rank">5</span><span class="chart-name">废渊战鬼</span><span class="chart-value">530万</span></div>
+              </div>
+            </div>
+            <div class="chart-card">
+              <div class="chart-card-title"><span class="chart-icon">🎬</span> 鬼畜周榜</div>
+              <div class="chart-list">
+                <div class="chart-row"><span class="chart-rank top1">1</span><span class="chart-name">《大哈鱼》新作</span><span class="chart-value">512万</span></div>
+                <div class="chart-row"><span class="chart-rank top2">2</span><span class="chart-name">《三国演义》角色混剪</span><span class="chart-value">298万</span></div>
+                <div class="chart-row"><span class="chart-rank top3">3</span><span class="chart-name">电棍鬼畜合集</span><span class="chart-value">241万</span></div>
+                <div class="chart-row"><span class="chart-rank">4</span><span class="chart-name">《猫和老鼠》音MAD</span><span class="chart-value">187万</span></div>
+                <div class="chart-row"><span class="chart-rank">5</span><span class="chart-name">黑人辛吉飞</span><span class="chart-value">165万</span></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </main>
+
+      <!-- 右辅助栏 -->
+      <aside class="side-right" aria-label="辅助信息">
+        <div class="side-card">
+          <div class="side-card-title"><span class="dot"></span> 全站热榜</div>
+          <div class="hot-list">
+            <div class="hot-item">
+              <span class="hot-rank top1">1</span>
+              <div><a href="/#section-fanju">葬送的芙莉莲 第二季 第5集</a><div class="hot-meta">982 万热度 · 番剧</div></div>
+            </div>
+            <div class="hot-item">
+              <span class="hot-rank top2">2</span>
+              <div><a href="/#section-zhibo">S16 总决赛 T1 vs BLG</a><div class="hot-meta">直播预约 200 万</div></div>
+            </div>
+            <div class="hot-item">
+              <span class="hot-rank top3">3</span>
+              <div><a href="/#section-guichu">《大哈鱼》新作</a><div class="hot-meta">鬼畜区 · 512 万播放</div></div>
+            </div>
+            <div class="hot-item">
+              <span class="hot-rank">4</span>
+              <div><a href="/#section-guochuang">凡人修仙传 星海篇 第118集</a><div class="hot-meta">国创 · 1240 万热度</div></div>
+            </div>
+            <div class="hot-item">
+              <span class="hot-rank">5</span>
+              <div><a href="/#section-fanju">胆大党 第二季 第6集</a><div class="hot-meta">番剧 · 876 万热度</div></div>
+            </div>
+            <div class="hot-item">
+              <span class="hot-rank">6</span>
+              <div><a href="/#section-zhishi">罗翔说刑法：网络暴力边界</a><div class="hot-meta">知识 · 弹幕 2.1 万</div></div>
+            </div>
+            <div class="hot-item">
+              <span class="hot-rank">7</span>
+              <div><a href="/#section-wudao">Idol 翻跳挑战</a><div class="hot-meta">舞蹈 · 1.2 万投稿</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="side-card">
+          <div class="side-card-title"><span class="dot"></span> 更新流</div>
+          <div class="update-stream">
+            <div class="update-item">
+              <span class="update-name">葬送的芙莉莲 第二季</span>
+              <span class="update-desc">第5集已上线</span>
+              <div class="update-time">今天 18:30</div>
+            </div>
+            <div class="update-item">
+              <span class="update-name">凡人修仙传 星海篇</span>
+              <span class="update-desc">第118集已上线</span>
+              <div class="update-time">今天 16:00</div>
+            </div>
+            <div class="update-item">
+              <span class="update-name">老番茄黑神话系列</span>
+              <span class="update-desc">第8期已发布</span>
+              <div class="update-time">昨天 21:10</div>
+            </div>
+            <div class="update-item">
+              <span class="update-name">时光代理人 第三季</span>
+              <span class="update-desc">PV 已公布</span>
+              <div class="update-time">11月5日</div>
+            </div>
+            <div class="update-item">
+              <span class="update-name">鬼畜《大哈鱼》新作</span>
+              <span class="update-desc">播放量破500万</span>
+              <div class="update-time">11月4日</div>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <!-- 页尾 -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="brand-name">b站<span>网页版</span></div>
+          <p>在电脑端追番、看直播、刷鬼畜舞蹈与知识区深度内容。聚合各分区具体条目与社区动态。</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col">
+            <h5>番剧与国创</h5>
+            <ul>
+              <li><a href="/#section-fanju">十月新番</a></li>
+              <li><a href="/#section-guochuang">国创周更</a></li>
+              <li><a href="/#section-fanju">续作推荐</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h5>直播与游戏</h5>
+            <ul>
+              <li><a href="/#section-zhibo">赛事直播</a></li>
+              <li><a href="/#section-zhibo">虚拟主播</a></li>
+              <li><a href="/#section-youxi">游戏实况</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h5>社区与创作</h5>
+            <ul>
+              <li><a href="/#section-guichu">鬼畜周榜</a></li>
+              <li><a href="/#section-wudao">舞蹈翻跳</a></li>
+              <li><a href="/#section-yinyue">音乐新曲</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h5>知识与资讯</h5>
+            <ul>
+              <li><a href="/#section-zhishi">知识科普</a></li>
+              <li><a href="/#section-xinxi">相关资讯</a></li>
+              <li><a href="/#section-faq">常见问题</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 b站网页版 · 内容聚合展示页面</span>
+        <span>部分内容为示例数据，仅用于展示页面结构</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 内联脚本：搜索与筛选 -->
+  <script>
+    (function() {
+      'use strict';
+
+      // 搜索功能：过滤精选卡片与更新列表
+      const searchInput = document.getElementById('site-search');
+      const searchBtn = document.getElementById('search-btn');
+      const fanjuGrid = document.getElementById('fanju-grid');
+      const updateList = document.getElementById('update-list');
+
+      if (!searchInput || !fanjuGrid || !updateList) return;
+
+      // 为动态内容创建无结果提示元素
+      const noResultsGrid = document.createElement('div');
+      noResultsGrid.className = 'no-results';
+      noResultsGrid.textContent = '没有找到相关内容，换个关键词试试';
+      fanjuGrid.parentNode.insertBefore(noResultsGrid, fanjuGrid.nextSibling);
+
+      const noResultsUpdate = document.createElement('div');
+      noResultsUpdate.className = 'no-results';
+      noResultsUpdate.textContent = '没有找到相关更新';
+      updateList.parentNode.insertBefore(noResultsUpdate, updateList.nextSibling);
+
+      function performSearch() {
+        const query = searchInput.value.trim().toLowerCase();
+        if (!query) {
+          // 清空搜索，全部显示
+          document.querySelectorAll('.content-card').forEach(card => card.style.display = '');
+          document.querySelectorAll('.update-row').forEach(row => row.style.display = '');
+          noResultsGrid.classList.remove('visible');
+          noResultsUpdate.classList.remove('visible');
+          return;
+        }
+
+        // 筛选卡片
+        let visibleCards = 0;
+        document.querySelectorAll('.content-card').forEach(card => {
+          const searchData = (card.dataset.search || '') + ' ' + card.textContent.toLowerCase();
+          if (searchData.includes(query)) {
+            card.style.display = '';
+            visibleCards++;
+          } else {
+            card.style.display = 'none';
+          }
+        });
+        noResultsGrid.classList.toggle('visible', visibleCards === 0);
+
+        // 筛选更新行
+        let visibleUpdates = 0;
+        document.querySelectorAll('.update-row').forEach(row => {
+          const text = row.textContent.toLowerCase();
+          if (text.includes(query)) {
+            row.style.display = '';
+            visibleUpdates++;
+          } else {
+            row.style.display = 'none';
+          }
+        });
+        noResultsUpdate.classList.toggle('visible', visibleUpdates === 0);
+      }
+
+      searchBtn.addEventListener('click', performSearch);
+      searchInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          performSearch();
+        }
+      });
+      // 输入时实时搜索（可选）
+      searchInput.addEventListener('input', performSearch);
+
+      // 锚点偏移已通过 CSS scroll-padding-top 处理
+    })();
+  </script>
+
+</body>
+  </html>
